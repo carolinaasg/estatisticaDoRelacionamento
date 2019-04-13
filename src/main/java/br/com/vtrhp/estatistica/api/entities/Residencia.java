@@ -7,9 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -43,6 +45,9 @@ public class Residencia implements Serializable {
 	private String relacionamentoComVizinhos;
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;
 
 	public Long getId() {
 		return id;
@@ -141,6 +146,14 @@ public class Residencia implements Serializable {
 	}
 	
 	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	@PreUpdate
 	public void preUpdate() {
 		dataAtualizacao = LocalDate.now();

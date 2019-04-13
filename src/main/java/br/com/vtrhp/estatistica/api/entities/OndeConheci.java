@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -34,6 +36,9 @@ public class OndeConheci implements Serializable {
 	private String Estado;
 	private LocalDate data;
 	private LocalTime hora;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -116,6 +121,14 @@ public class OndeConheci implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@PreUpdate

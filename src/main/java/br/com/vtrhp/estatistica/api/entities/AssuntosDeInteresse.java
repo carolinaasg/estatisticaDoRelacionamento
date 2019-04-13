@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -29,6 +31,9 @@ public class AssuntosDeInteresse implements Serializable{
 
 	private NivelENum nivel;
 	private AssuntosInteresseEnum assuntosInteresse;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -73,6 +78,14 @@ public class AssuntosDeInteresse implements Serializable{
 		this.dataAtualizacao = dataAtualizacao;
 	}
 	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	@PreUpdate
 	public void preUpdate() {
 		dataAtualizacao = LocalDate.now();
