@@ -2,13 +2,19 @@ package br.com.vtrhp.estatistica.api.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.AssuntosInteresseEnum;
 import br.com.vtrhp.estatistica.api.enums.NivelENum;
 
+@Entity
+@Table(name = "assuntosDeInteresse")
 public class AssuntosDeInteresse {
 
 	@Id
@@ -59,6 +65,18 @@ public class AssuntosDeInteresse {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		dataAtualizacao = LocalDate.now();
+	}
+
+	@PrePersist
+	public void prePersist() {
+		final LocalDate atual = LocalDate.now();
+		dataCriacao = atual;
+		dataAtualizacao = atual;
 	}
 
 }

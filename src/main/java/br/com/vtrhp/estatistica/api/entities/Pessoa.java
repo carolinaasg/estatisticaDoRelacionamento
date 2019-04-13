@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -26,8 +27,8 @@ import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
 @Table(name = "pessoa")
-public class Pessoa implements Serializable{
-	
+public class Pessoa implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -36,72 +37,219 @@ public class Pessoa implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "nome")
 	private String nome;
-	
+
 	@Column(name = "dataNascimento")
 	private LocalDate dataNascimento;
-	
+
 	@Column(name = "horaNascimento")
 	private LocalTime horaNascimento;
-	
+
 	@Column(name = "altura")
 	private Double altura;
-	
+
+	@Column(name = "peso")
+	private Double peso;
+
 	@Column(name = "estadoNascimento")
 	private String estadoNascimento;
-	
+
 	@Column(name = "cidadeNascimento")
 	private String cidadeNascimento;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "orientacaoSexual")
 	private OrientacaoSexualEnum orientacaoSexual;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "paisDeOrigem")
 	private PaisesEnum paisDeOrigem;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "nacionalidade")
 	private NacionalidadeEnum nacionalidade;
-	
+
 	@Column(name = "adotivo")
 	private char adotivo;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "signo")
-	private SignosEnum signo;	
-	
+	private SignosEnum signo;
+
 	@Column(name = "descendencia")
 	private String descendencia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OndeConheci> ondeConheci;
-	
-	//LISTAS
+
+	// LISTAS
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AssuntosDeInteresse> assuntosDeInteresse;
-	
+
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Residencia> residencia;
-	
-	
-	//Manutenção da Tabela
+
+	// Manutenção da Tabela
 	@Column(name = "dataCriacao")
 	private LocalDate dataCriacao;
-	
+
 	@Column(name = "dataAtualizacao")
-	private LocalDate dataAtualizacao;	
-	
-	
-	
-	
-	
-	
-	
-	
+	private LocalDate dataAtualizacao;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public LocalTime getHoraNascimento() {
+		return horaNascimento;
+	}
+
+	public void setHoraNascimento(LocalTime horaNascimento) {
+		this.horaNascimento = horaNascimento;
+	}
+
+	public Double getAltura() {
+		return altura;
+	}
+
+	public void setAltura(Double altura) {
+		this.altura = altura;
+	}
+
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Double peso) {
+		this.peso = peso;
+	}
+
+	public String getEstadoNascimento() {
+		return estadoNascimento;
+	}
+
+	public void setEstadoNascimento(String estadoNascimento) {
+		this.estadoNascimento = estadoNascimento;
+	}
+
+	public String getCidadeNascimento() {
+		return cidadeNascimento;
+	}
+
+	public void setCidadeNascimento(String cidadeNascimento) {
+		this.cidadeNascimento = cidadeNascimento;
+	}
+
+	public OrientacaoSexualEnum getOrientacaoSexual() {
+		return orientacaoSexual;
+	}
+
+	public void setOrientacaoSexual(OrientacaoSexualEnum orientacaoSexual) {
+		this.orientacaoSexual = orientacaoSexual;
+	}
+
+	public PaisesEnum getPaisDeOrigem() {
+		return paisDeOrigem;
+	}
+
+	public void setPaisDeOrigem(PaisesEnum paisDeOrigem) {
+		this.paisDeOrigem = paisDeOrigem;
+	}
+
+	public NacionalidadeEnum getNacionalidade() {
+		return nacionalidade;
+	}
+
+	public void setNacionalidade(NacionalidadeEnum nacionalidade) {
+		this.nacionalidade = nacionalidade;
+	}
+
+	public char getAdotivo() {
+		return adotivo;
+	}
+
+	public void setAdotivo(char adotivo) {
+		this.adotivo = adotivo;
+	}
+
+	public SignosEnum getSigno() {
+		return signo;
+	}
+
+	public void setSigno(SignosEnum signo) {
+		this.signo = signo;
+	}
+
+	public String getDescendencia() {
+		return descendencia;
+	}
+
+	public void setDescendencia(String descendencia) {
+		this.descendencia = descendencia;
+	}
+
+	public List<OndeConheci> getOndeConheci() {
+		return ondeConheci;
+	}
+
+	public void setOndeConheci(List<OndeConheci> ondeConheci) {
+		this.ondeConheci = ondeConheci;
+	}
+
+	public List<AssuntosDeInteresse> getAssuntosDeInteresse() {
+		return assuntosDeInteresse;
+	}
+
+	public void setAssuntosDeInteresse(List<AssuntosDeInteresse> assuntosDeInteresse) {
+		this.assuntosDeInteresse = assuntosDeInteresse;
+	}
+
+	public List<Residencia> getResidencia() {
+		return residencia;
+	}
+
+	public void setResidencia(List<Residencia> residencia) {
+		this.residencia = residencia;
+	}
+
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
 	@PreUpdate
 	public void preUpdate() {
 		dataAtualizacao = LocalDate.now();
@@ -113,6 +261,5 @@ public class Pessoa implements Serializable{
 		dataCriacao = atual;
 		dataAtualizacao = atual;
 	}
-	
 
 }
