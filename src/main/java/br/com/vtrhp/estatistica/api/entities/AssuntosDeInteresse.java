@@ -1,5 +1,6 @@
 package br.com.vtrhp.estatistica.api.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -15,7 +16,12 @@ import br.com.vtrhp.estatistica.api.enums.NivelENum;
 
 @Entity
 @Table(name = "assuntosDeInteresse")
-public class AssuntosDeInteresse {
+public class AssuntosDeInteresse implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1535328936453273480L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
