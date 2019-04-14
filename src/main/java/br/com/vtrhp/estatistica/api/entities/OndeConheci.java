@@ -6,18 +6,14 @@ import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.AplicativosDeRelacionamentoEnum;
 
 @Entity
-@Table(name = "ondeConheci")
 public class OndeConheci implements Serializable {
 	
 	/**
@@ -25,12 +21,11 @@ public class OndeConheci implements Serializable {
 	 */
 	private static final long serialVersionUID = -3180265044652498331L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
+	@Id	
+	private Long idOndeConheci;
 	private AplicativosDeRelacionamentoEnum app;
-	private String nome;
+	private String nomeLocal;
+	private String tipo;
 	private String descricao;
 	private String cidade;
 	private String Estado;
@@ -43,12 +38,12 @@ public class OndeConheci implements Serializable {
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
 
-	public Long getId() {
-		return id;
+	public Long getIdOndeConheci() {
+		return idOndeConheci;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdOndeConheci(Long idOndeConheci) {
+		this.idOndeConheci = idOndeConheci;
 	}
 
 	public AplicativosDeRelacionamentoEnum getApp() {
@@ -59,12 +54,20 @@ public class OndeConheci implements Serializable {
 		this.app = app;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeLocal() {
+		return nomeLocal;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeLocal(String nomeLocal) {
+		this.nomeLocal = nomeLocal;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getDescricao() {
@@ -139,7 +142,6 @@ public class OndeConheci implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		final LocalDate atual = LocalDate.now();
-		dataCriacao = atual;
 		dataAtualizacao = atual;
 	}
 

@@ -5,19 +5,15 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.AssuntosInteresseEnum;
 import br.com.vtrhp.estatistica.api.enums.NivelENum;
 
 @Entity
-@Table(name = "assuntosDeInteresse")
 public class AssuntosDeInteresse implements Serializable{
 
 	/**
@@ -25,9 +21,8 @@ public class AssuntosDeInteresse implements Serializable{
 	 */
 	private static final long serialVersionUID = -1535328936453273480L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Id	
+	private Long idAssuntosDeInteresse;
 
 	private NivelENum nivel;
 	private AssuntosInteresseEnum assuntosInteresse;
@@ -38,12 +33,12 @@ public class AssuntosDeInteresse implements Serializable{
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
 
-	public Long getId() {
-		return id;
+	public Long getIdAssuntosDeInteresse() {
+		return idAssuntosDeInteresse;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdAssuntosDeInteresse(Long idAssuntosDeInteresse) {
+		this.idAssuntosDeInteresse = idAssuntosDeInteresse;
 	}
 
 	public NivelENum getNivel() {
@@ -93,8 +88,7 @@ public class AssuntosDeInteresse implements Serializable{
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataCriacao = atual;
+		final LocalDate atual = LocalDate.now();		
 		dataAtualizacao = atual;
 	}
 

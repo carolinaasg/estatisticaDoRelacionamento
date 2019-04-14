@@ -6,19 +6,15 @@ import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
 import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
@@ -26,7 +22,6 @@ import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
-@Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
 	/**
@@ -34,51 +29,24 @@ public class Pessoa implements Serializable {
 	 */
 	private static final long serialVersionUID = 3962008930812602687L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@Column(name = "nome")
-	private String nome;
-
-	@Column(name = "dataNascimento")
-	private LocalDate dataNascimento;
-
-	@Column(name = "horaNascimento")
-	private LocalTime horaNascimento;
-
-	@Column(name = "altura")
-	private Double altura;
-
-	@Column(name = "peso")
-	private Double peso;
-
-	@Column(name = "estadoNascimento")
-	private String estadoNascimento;
-
-	@Column(name = "cidadeNascimento")
+	@Id	
+	private Long idPessoa;	
+	private String nome;	
+	private LocalDate dataNascimento;	
+	private LocalTime horaNascimento;	
+	private Double altura;	
+	private Double peso;	
+	private String estadoNascimento;	
 	private String cidadeNascimento;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "orientacaoSexual")
+	@Enumerated(EnumType.STRING)	
 	private OrientacaoSexualEnum orientacaoSexual;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "paisDeOrigem")
+	@Enumerated(EnumType.STRING)	
 	private PaisesEnum paisDeOrigem;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "nacionalidade")
-	private NacionalidadeEnum nacionalidade;
-
-	@Column(name = "adotivo")
+	@Enumerated(EnumType.STRING)	
+	private NacionalidadeEnum nacionalidade;	
 	private char adotivo;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "signo")
-	private SignosEnum signo;
-
-	@Column(name = "descendencia")
+	@Enumerated(EnumType.STRING)	
+	private SignosEnum signo;	
 	private String descendencia;
 
 	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -91,19 +59,16 @@ public class Pessoa implements Serializable {
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Residencia> residencia;
 
-	// Manutenção da Tabela
-	@Column(name = "dataCriacao")
-	private LocalDate dataCriacao;
-
-	@Column(name = "dataAtualizacao")
+	// Manutenção da Tabela	
+	private LocalDate dataCriacao;	
 	private LocalDate dataAtualizacao;
 
-	public Long getId() {
-		return id;
+	public Long getIdPessoa() {
+		return idPessoa;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
@@ -257,8 +222,7 @@ public class Pessoa implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataCriacao = atual;
+		final LocalDate atual = LocalDate.now();		
 		dataAtualizacao = atual;
 	}
 

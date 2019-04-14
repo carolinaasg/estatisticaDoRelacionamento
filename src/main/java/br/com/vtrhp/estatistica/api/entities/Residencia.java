@@ -3,23 +3,18 @@ package br.com.vtrhp.estatistica.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 
 @Entity
-@Table(name = "residencia")
 public class Residencia implements Serializable {
 
 	/**
@@ -27,17 +22,15 @@ public class Residencia implements Serializable {
 	 */
 	private static final long serialVersionUID = -1100325593268914306L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Id	
+	private Long idResidencia;
 	private String endereco;
 	private Integer numero;
 	private String complemento;
 	private String cep;
 	private String bairro;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "pais")
+	@Enumerated(EnumType.STRING)	
 	private PaisesEnum pais;
 	
 	private String qtoTempoMora;
@@ -49,12 +42,12 @@ public class Residencia implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
 
-	public Long getId() {
-		return id;
+	public Long getIdResidencia() {
+		return idResidencia;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdResidencia(Long idResidencia) {
+		this.idResidencia = idResidencia;
 	}
 
 	public String getEndereco() {
@@ -161,8 +154,7 @@ public class Residencia implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataCriacao = atual;
+		final LocalDate atual = LocalDate.now();		
 		dataAtualizacao = atual;
 	}
 	
