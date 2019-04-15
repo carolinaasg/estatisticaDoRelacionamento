@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -32,7 +32,7 @@ public class OndeConheci implements Serializable {
 	private LocalDate data;
 	private LocalTime hora;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
 
 	private LocalDate dataCriacao;

@@ -50,7 +50,7 @@ public class Pessoa implements Serializable {
 	private String descendencia;
 
 	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<OndeConheci> ondeConheci;
+	private OndeConheci ondeConheci;
 
 	// LISTAS
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -175,11 +175,11 @@ public class Pessoa implements Serializable {
 		this.descendencia = descendencia;
 	}
 
-	public List<OndeConheci> getOndeConheci() {
+	public OndeConheci getOndeConheci() {
 		return ondeConheci;
 	}
 
-	public void setOndeConheci(List<OndeConheci> ondeConheci) {
+	public void setOndeConheci(OndeConheci ondeConheci) {
 		this.ondeConheci = ondeConheci;
 	}
 
