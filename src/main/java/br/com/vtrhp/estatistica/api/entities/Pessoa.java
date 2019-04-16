@@ -48,9 +48,12 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)	
 	private SignosEnum signo;	
 	private String descendencia;
+	private Integer tamanhoPe;
 
 	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private OndeConheci ondeConheci;
+	
+	
 
 	// LISTAS
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -58,6 +61,12 @@ public class Pessoa implements Serializable {
 
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Residencia> residencia;
+	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Profissao> profissao;
+	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Dia> dia;
 
 	// Manutenção da Tabela	
 	private LocalDate dataCriacao;	
@@ -173,6 +182,14 @@ public class Pessoa implements Serializable {
 
 	public void setDescendencia(String descendencia) {
 		this.descendencia = descendencia;
+	}
+
+	public Integer getTamanhoPe() {
+		return tamanhoPe;
+	}
+
+	public void setTamanhoPe(Integer tamanhoPe) {
+		this.tamanhoPe = tamanhoPe;
 	}
 
 	public OndeConheci getOndeConheci() {

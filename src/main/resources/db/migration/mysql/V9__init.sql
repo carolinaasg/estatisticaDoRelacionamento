@@ -13,6 +13,7 @@ create table if not exists pessoa(
 	adotivo varchar(2),	
 	signo varchar(255),	
 	descendencia varchar(255),	
+	tamanhoPe integer,
 	dataCriacao date,	
 	dataAtualizacao date
 )engine = innodb;
@@ -57,7 +58,43 @@ create table if not exists ondeConheci(
 	dataAtualizacao date
 )engine = innodb;
 
+create table if not exists profissao(
+	idProfissao integer auto_increment primary key,	
+	idPessoa integer,
+	nomeEmpresa varchar(255),
+	profissao varchar(255),
+	cargo varchar(255),
+	Descricao varchar(1000),
+	tempoDeEmpresa integer,
+	gostaDoQueFaz varchar(2),
+	gostaDaEquipe varchar(2),
+	gostaDoChefe varchar(2),
+	salarioBruto double,
+	salarioLiquido double,
+	qtdSubordinados integer,
+	dataDemissao date,
+	dataContratacao date,	
+	dataCriacao date,
+	dataAtualizacao date
+)engine = innodb;
+
+create table if not exists dia(
+	idDia integer auto_increment primary key,
+	idPessoa integer,
+	qtdHorasTrabalhadas double,
+	qtdHorasDeSono double,
+	horaAlmoco date,	
+	horaJanta date,	
+	descricao varchar(255),
+	pontosPositivos varchar(255),
+	pontosNegativos varchar(255),
+	dataCriacao date, 
+	dataAtualizacao date
+)engine = innodb;
+
 alter table residencia add constraint fk_residencia foreign key (idPessoa) references pessoa (idPessoa);
 alter table assuntosDeInteresse add constraint fk_assuntosDeInteresse foreign key (idPessoa) references pessoa (idPessoa); 
 alter table ondeConheci add constraint fk_ondeConheci foreign key (idPessoa) references pessoa (idPessoa);
+alter table profissao add constraint fk_profissao foreign key (idPessoa) references pessoa (idPessoa);
+alter table dia add constraint fk_dia foreign key (idPessoa) references pessoa (idPessoa);
 
