@@ -11,8 +11,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -22,15 +22,16 @@ import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
-public class Pessoa implements Serializable {
-
+public class Familia implements Serializable{	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3962008930812602687L;
-
-	@Id	
-	private Long idPessoa;	
+	private static final long serialVersionUID = 4217903259530478432L;
+	@Id
+	private Long idFamilia;	
+	private Long idPessoa;
+	private Long idRelacaoFamilia;
 	private String nome;	
 	private LocalDate dataNascimento;	
 	private LocalTime horaNascimento;	
@@ -38,42 +39,39 @@ public class Pessoa implements Serializable {
 	private Double peso;	
 	private String estadoNascimento;	
 	private String cidadeNascimento;
+	private char adotivo;
+	
 	@Enumerated(EnumType.STRING)	
 	private OrientacaoSexualEnum orientacaoSexual;
 	@Enumerated(EnumType.STRING)	
 	private PaisesEnum paisDeOrigem;
 	@Enumerated(EnumType.STRING)	
 	private NacionalidadeEnum nacionalidade;	
-	private char adotivo;
 	@Enumerated(EnumType.STRING)	
-	private SignosEnum signo;	
+	private SignosEnum signo;
+	
 	private String descendencia;
 	private Integer tamanhoPe;
+	private String grauDeParentesco;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;
 
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private OndeConheci ondeConheci;
-	
-	
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<RelacaoComFamilia> relacaoComFamilia;
 
-	// LISTAS
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<AssuntosDeInteresse> assuntosDeInteresse;
-
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Residencia> residencia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Profissao> profissao;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Dia> dia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Familia> familia;
 
 	// Manutenção da Tabela	
 	private LocalDate dataCriacao;	
 	private LocalDate dataAtualizacao;
+	
+	public Long getIdFamilia() {
+		return idFamilia;
+	}
+
+	public void setIdFamilia(Long idFamilia) {
+		this.idFamilia = idFamilia;
+	}
 
 	public Long getIdPessoa() {
 		return idPessoa;
@@ -81,6 +79,14 @@ public class Pessoa implements Serializable {
 
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
+	}
+
+	public Long getIdRelacaoFamilia() {
+		return idRelacaoFamilia;
+	}
+
+	public void setIdRelacaoFamilia(Long idRelacaoFamilia) {
+		this.idRelacaoFamilia = idRelacaoFamilia;
 	}
 
 	public String getNome() {
@@ -139,6 +145,14 @@ public class Pessoa implements Serializable {
 		this.cidadeNascimento = cidadeNascimento;
 	}
 
+	public char getAdotivo() {
+		return adotivo;
+	}
+
+	public void setAdotivo(char adotivo) {
+		this.adotivo = adotivo;
+	}
+
 	public OrientacaoSexualEnum getOrientacaoSexual() {
 		return orientacaoSexual;
 	}
@@ -161,14 +175,6 @@ public class Pessoa implements Serializable {
 
 	public void setNacionalidade(NacionalidadeEnum nacionalidade) {
 		this.nacionalidade = nacionalidade;
-	}
-
-	public char getAdotivo() {
-		return adotivo;
-	}
-
-	public void setAdotivo(char adotivo) {
-		this.adotivo = adotivo;
 	}
 
 	public SignosEnum getSigno() {
@@ -195,28 +201,28 @@ public class Pessoa implements Serializable {
 		this.tamanhoPe = tamanhoPe;
 	}
 
-	public OndeConheci getOndeConheci() {
-		return ondeConheci;
+	public String getGrauDeParentesco() {
+		return grauDeParentesco;
 	}
 
-	public void setOndeConheci(OndeConheci ondeConheci) {
-		this.ondeConheci = ondeConheci;
+	public void setGrauDeParentesco(String grauDeParentesco) {
+		this.grauDeParentesco = grauDeParentesco;
 	}
 
-	public List<AssuntosDeInteresse> getAssuntosDeInteresse() {
-		return assuntosDeInteresse;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setAssuntosDeInteresse(List<AssuntosDeInteresse> assuntosDeInteresse) {
-		this.assuntosDeInteresse = assuntosDeInteresse;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public List<Residencia> getResidencia() {
-		return residencia;
+	public List<RelacaoComFamilia> getRelacaoComFamilia() {
+		return relacaoComFamilia;
 	}
 
-	public void setResidencia(List<Residencia> residencia) {
-		this.residencia = residencia;
+	public void setRelacaoComFamilia(List<RelacaoComFamilia> relacaoComFamilia) {
+		this.relacaoComFamilia = relacaoComFamilia;
 	}
 
 	public LocalDate getDataCriacao() {
@@ -235,30 +241,6 @@ public class Pessoa implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public List<Profissao> getProfissao() {
-		return profissao;
-	}
-
-	public void setProfissao(List<Profissao> profissao) {
-		this.profissao = profissao;
-	}
-
-	public List<Dia> getDia() {
-		return dia;
-	}
-
-	public void setDia(List<Dia> dia) {
-		this.dia = dia;
-	}
-
-	public List<Familia> getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(List<Familia> familia) {
-		this.familia = familia;
-	}
-
 	@PreUpdate
 	public void preUpdate() {
 		dataAtualizacao = LocalDate.now();
@@ -266,8 +248,9 @@ public class Pessoa implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();		
+		final LocalDate atual = LocalDate.now();
 		dataAtualizacao = atual;
 	}
+
 
 }
