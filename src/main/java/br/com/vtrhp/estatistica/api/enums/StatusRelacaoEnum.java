@@ -4,5 +4,6 @@ public enum StatusRelacaoEnum {
 	OTIMO,
 	BOM,
 	RUIM,
-	PESSIMO;
+	PESSIMO,
+	INDEFINIDO;
 }

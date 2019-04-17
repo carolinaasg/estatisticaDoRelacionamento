@@ -13,15 +13,16 @@ import javax.persistence.PreUpdate;
 import org.javamoney.moneta.Money;
 
 @Entity
-public class Profissao implements Serializable{
+public class Profissao implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4452861555374092394L;
-	
+
 	@Id
 	private Long idProfissao;
+	private Long idPessoa;
 	private String nomeEmpresa;
 	private String profissao;
 	private String cargo;
@@ -48,6 +49,14 @@ public class Profissao implements Serializable{
 
 	public void setIdProfissao(Long idProfissao) {
 		this.idProfissao = idProfissao;
+	}
+
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNomeEmpresa() {

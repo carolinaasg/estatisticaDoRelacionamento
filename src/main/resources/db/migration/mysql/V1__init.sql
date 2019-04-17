@@ -111,20 +111,61 @@ create table if not exists familia(
 	descendencia varchar(255),	
 	tamanhoPe integer,
 	grauDeParentesco varchar(255),	
+	dataFalecimento date,
+	horaFalecimento date,
 	dataCriacao date,	
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists RelacaoComFamilia(
-	
+create table if not exists relacaoComFamilia(	
 	idRelacaoFamilia integer auto_increment primary key,
 	idFamilia integer,
 	nome varchar(255),
 	grauDeParentesco varchar(50),
 	descricao varchar(4000),
 	statusRelacao varchar(50),
-	dataEvento date,	
+	dataEvento date,
+	pontosPositivos  varchar(2000),
+	pontosNegativos  varchar(2000),	
 	dataCriacao date,	
+	dataAtualizacao date
+)engine = innodb;
+
+
+create table if not exists pontosPositivosFamilia(
+	idPontosPositivosFamilia integer auto_increment primary key,
+	idFamilia integer,
+	pontosPositivos varchar(255),
+	data date,
+	motivo varchar(4000),	
+	dataCriacao date,
+	dataAtualizacao date
+)engine = innodb;
+
+create table if not exists pontosNegativosFamilia(
+	idPontosNegativosFamilia integer auto_increment primary key,
+	idFamilia integer,
+	pontosNegativosFamilia varchar(255),
+	data date,
+	motivo varchar(4000),
+	dataCriacao date,	
+	dataAtualizacao date
+)engine = innodb;
+
+create table if not exists contatoComFamilia(
+	idContatoComFamilia integer auto_increment primary key,
+	idFamilia integer,
+	dataEncontro date,
+	virtualmente varchar(2),
+	pessoalmente varchar(2),
+	descricao varchar(4000),
+	pais varchar(255),
+	estado varchar(255),
+	cidade varchar(255),
+	local varchar(255),
+	motivo varchar(4000),
+	qtdHorasJuntos double,
+	dataCriacao date,
 	dataAtualizacao date
 )engine = innodb;
 
@@ -136,4 +177,7 @@ alter table profissao add constraint fk_profissao foreign key (idPessoa) referen
 alter table dia add constraint fk_dia foreign key (idPessoa) references pessoa (idPessoa);
 alter table familia add constraint fk_familia foreign key (idPessoa) references pessoa (idPessoa);
 alter table RelacaoComFamilia add constraint fk_relacaoComFamilia foreign key (idFamilia) references familia (idFamilia);
+alter table PontosPositivosFamilia add constraint fk_pontosPositivosFamilia foreign key (idFamilia) references familia (idFamilia);
+alter table PontosNegativosFamilia add constraint fk_pontosNegativosFamilia foreign key (idFamilia) references familia (idFamilia);
+alter table contatoComFamilia add constraint fk_contatoComFamilia foreign key (idFamilia) references familia (idFamilia);
 

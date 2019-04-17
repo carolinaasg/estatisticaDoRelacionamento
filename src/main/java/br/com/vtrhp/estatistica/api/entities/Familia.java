@@ -40,6 +40,9 @@ public class Familia implements Serializable{
 	private String estadoNascimento;	
 	private String cidadeNascimento;
 	private char adotivo;
+	private LocalDate dataFalecimento;
+	private LocalTime horaFalecimento;
+
 	
 	@Enumerated(EnumType.STRING)	
 	private OrientacaoSexualEnum orientacaoSexual;
@@ -59,6 +62,13 @@ public class Familia implements Serializable{
 
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<RelacaoComFamilia> relacaoComFamilia;
+	
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<PontosPositivosFamilia> pontosPositivosFamilia;
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<PontosNegativosFamilia> pontosNegativosFamilia;
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ContatoComFamilia> contatoComFamilia;
 
 
 	// Manutenção da Tabela	
@@ -239,6 +249,46 @@ public class Familia implements Serializable{
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public LocalDate getDataFalecimento() {
+		return dataFalecimento;
+	}
+
+	public void setDataFalecimento(LocalDate dataFalecimento) {
+		this.dataFalecimento = dataFalecimento;
+	}
+
+	public LocalTime getHoraFalecimento() {
+		return horaFalecimento;
+	}
+
+	public void setHoraFalecimento(LocalTime horaFalecimento) {
+		this.horaFalecimento = horaFalecimento;
+	}
+
+	public List<PontosPositivosFamilia> getPontosPositivosFamilia() {
+		return pontosPositivosFamilia;
+	}
+
+	public void setPontosPositivosFamilia(List<PontosPositivosFamilia> pontosPositivosFamilia) {
+		this.pontosPositivosFamilia = pontosPositivosFamilia;
+	}
+
+	public List<PontosNegativosFamilia> getPontosNegativosFamilia() {
+		return pontosNegativosFamilia;
+	}
+
+	public void setPontosNegativosFamilia(List<PontosNegativosFamilia> pontosNegativosFamilia) {
+		this.pontosNegativosFamilia = pontosNegativosFamilia;
+	}
+
+	public List<ContatoComFamilia> getContatoComFamilia() {
+		return contatoComFamilia;
+	}
+
+	public void setContatoComFamilia(List<ContatoComFamilia> contatoComFamilia) {
+		this.contatoComFamilia = contatoComFamilia;
 	}
 
 	@PreUpdate

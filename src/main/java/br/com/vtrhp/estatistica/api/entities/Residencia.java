@@ -22,23 +22,24 @@ public class Residencia implements Serializable {
 	 */
 	private static final long serialVersionUID = -1100325593268914306L;
 
-	@Id	
+	@Id
 	private Long idResidencia;
+	private Long idPessoa;
 	private String endereco;
 	private Integer numero;
 	private String complemento;
 	private String cep;
 	private String bairro;
-	
-	@Enumerated(EnumType.STRING)	
+
+	@Enumerated(EnumType.STRING)
 	private PaisesEnum pais;
-	
+
 	private String qtoTempoMora;
 	private String moraCom;
 	private String relacionamentoComVizinhos;
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
 
@@ -48,6 +49,14 @@ public class Residencia implements Serializable {
 
 	public void setIdResidencia(Long idResidencia) {
 		this.idResidencia = idResidencia;
+	}
+
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getEndereco() {
@@ -137,8 +146,7 @@ public class Residencia implements Serializable {
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
-	
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -154,9 +162,8 @@ public class Residencia implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();		
+		final LocalDate atual = LocalDate.now();
 		dataAtualizacao = atual;
 	}
-	
 
 }
