@@ -165,7 +165,7 @@ create table if not exists contatoComFamilia(
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists Falecimento(
+create table if not exists falecimento(
 	idFalecimento integer auto_increment primary key,
 	idPessoa integer,
 	idFamilia integer,
@@ -177,7 +177,21 @@ create table if not exists Falecimento(
 	dataAtualizacao date
 )engine = innodb;
 
-
+create table if not exists veiculo(
+	idVeiculo  integer auto_increment primary key,
+	idPessoa integer,
+	idFamilia integer,
+	dataCompra date,
+	dataVenda date,
+	tipo varchar(255),
+	marca varchar(255),
+	modelo varchar(255),
+	anoFabricacao integer,
+	anoModelo integer,
+	quilometragem integer,	
+	dataCriacao date,
+	dataAtualizacao date
+)engine = innodb;
 
 
 alter table residencia add constraint fk_residencia foreign key (idPessoa) references pessoa (idPessoa);
@@ -192,5 +206,7 @@ alter table PontosNegativosFamilia add constraint fk_pontosNegativosFamilia fore
 alter table contatoComFamilia add constraint fk_contatoComFamilia foreign key (idFamilia) references familia (idFamilia);
 alter table falecimento add constraint fk_falecimentoPessoa foreign key (idPessoa) references pessoa (idPessoa);
 alter table falecimento add constraint fk_falecimentoFamilia foreign key (idFamilia) references familia (idFamilia);
+alter table veiculo add constraint fk_veiculoPessoa foreign key (idPessoa) references pessoa (idPessoa);
+alter table veiculo add constraint fk_veiculoFamilia foreign key (idFamilia) references familia (idFamilia);
 
 

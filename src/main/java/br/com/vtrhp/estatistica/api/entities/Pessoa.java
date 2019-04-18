@@ -72,6 +72,9 @@ public class Pessoa implements Serializable {
 	
 	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Familia> familia;
+	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
 
 	// Manutenção da Tabela	
 	private LocalDate dataCriacao;	
@@ -259,6 +262,22 @@ public class Pessoa implements Serializable {
 
 	public void setFamilia(List<Familia> familia) {
 		this.familia = familia;
+	}
+
+	public Falecimento getFalecimento() {
+		return falecimento;
+	}
+
+	public void setFalecimento(Falecimento falecimento) {
+		this.falecimento = falecimento;
+	}
+
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	@PreUpdate

@@ -70,7 +70,9 @@ public class Familia implements Serializable {
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PontosNegativosFamilia> pontosNegativosFamilia;
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ContatoComFamilia> contatoComFamilia;
+	private List<ContatoComFamilia> contatoComFamilia;	
+	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
 
 	// Manutenção da Tabela
 	private LocalDate dataCriacao;
@@ -290,6 +292,14 @@ public class Familia implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	@PreUpdate
