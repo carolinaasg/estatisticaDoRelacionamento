@@ -11,10 +11,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
 import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
@@ -22,66 +21,68 @@ import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
-public class Pessoa implements Serializable {
+public class Amigos implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3962008930812602687L;
+	private static final long serialVersionUID = -2028297871956417466L;
 
-	@Id	
-	private Long idPessoa;	
-	private String nome;	
-	private LocalDate dataNascimento;	
-	private LocalTime horaNascimento;	
-	private Double altura;	
-	private Double peso;	
-	private String estadoNascimento;	
+	@Id
+	private Long idAmigo;
+	private Long idPessoa;
+	private String nome;
+	private LocalDate dataNascimento;
+	private LocalTime horaNascimento;
+	private Double altura;
+	private Double peso;
+	private String estadoNascimento;
 	private String cidadeNascimento;
-	@Enumerated(EnumType.STRING)	
+	@Enumerated(EnumType.STRING)
 	private OrientacaoSexualEnum orientacaoSexual;
-	@Enumerated(EnumType.STRING)	
+	@Enumerated(EnumType.STRING)
 	private PaisesEnum paisDeOrigem;
-	@Enumerated(EnumType.STRING)	
-	private NacionalidadeEnum nacionalidade;	
+	@Enumerated(EnumType.STRING)
+	private NacionalidadeEnum nacionalidade;
 	private char adotivo;
-	@Enumerated(EnumType.STRING)	
-	private SignosEnum signo;	
+	@Enumerated(EnumType.STRING)
+	private SignosEnum signo;
 	private String descendencia;
 	private Integer tamanhoPe;
 
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Pessoa pessoa;
+
+	@OneToOne(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private OndeConheci ondeConheci;
-	
-	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+	@OneToOne(mappedBy = "amigos", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Falecimento falecimento;
-	
 
 	// LISTAS
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AssuntosDeInteresse> assuntosDeInteresse;
 
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Residencia> residencia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Profissao> profissao;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Dia> dia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Familia> familia;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Veiculo> veiculo;
-	
-	@OneToMany(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Amigos> amigos;
 
-	// Manutenção da Tabela	
-	private LocalDate dataCriacao;	
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Profissao> profissao;
+
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
+
+	// Manutenção da Tabela
+	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
+	}
 
 	public Long getIdPessoa() {
 		return idPessoa;
@@ -203,12 +204,28 @@ public class Pessoa implements Serializable {
 		this.tamanhoPe = tamanhoPe;
 	}
 
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	public OndeConheci getOndeConheci() {
 		return ondeConheci;
 	}
 
 	public void setOndeConheci(OndeConheci ondeConheci) {
 		this.ondeConheci = ondeConheci;
+	}
+
+	public Falecimento getFalecimento() {
+		return falecimento;
+	}
+
+	public void setFalecimento(Falecimento falecimento) {
+		this.falecimento = falecimento;
 	}
 
 	public List<AssuntosDeInteresse> getAssuntosDeInteresse() {
@@ -227,6 +244,22 @@ public class Pessoa implements Serializable {
 		this.residencia = residencia;
 	}
 
+	public List<Profissao> getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(List<Profissao> profissao) {
+		this.profissao = profissao;
+	}
+
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
+	}
+
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
@@ -241,65 +274,6 @@ public class Pessoa implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public List<Profissao> getProfissao() {
-		return profissao;
-	}
-
-	public void setProfissao(List<Profissao> profissao) {
-		this.profissao = profissao;
-	}
-
-	public List<Dia> getDia() {
-		return dia;
-	}
-
-	public void setDia(List<Dia> dia) {
-		this.dia = dia;
-	}
-
-	public List<Familia> getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(List<Familia> familia) {
-		this.familia = familia;
-	}
-
-	public Falecimento getFalecimento() {
-		return falecimento;
-	}
-
-	public void setFalecimento(Falecimento falecimento) {
-		this.falecimento = falecimento;
-	}
-
-	public List<Veiculo> getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(List<Veiculo> veiculo) {
-		this.veiculo = veiculo;
-	}
-
-	public List<Amigos> getAmigos() {
-		return amigos;
-	}
-
-	public void setAmigos(List<Amigos> amigos) {
-		this.amigos = amigos;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();		
-		dataAtualizacao = atual;
 	}
 
 }

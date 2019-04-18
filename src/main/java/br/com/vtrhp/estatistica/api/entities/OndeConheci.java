@@ -23,6 +23,8 @@ public class OndeConheci implements Serializable {
 
 	@Id	
 	private Long idOndeConheci;
+	private Long idPessoa;
+	private Long idAmigo;
 	private AplicativosDeRelacionamentoEnum app;
 	private String nomeLocal;
 	private String tipo;
@@ -34,6 +36,9 @@ public class OndeConheci implements Serializable {
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	private Amigos amigos;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -132,6 +137,30 @@ public class OndeConheci implements Serializable {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public Amigos getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(Amigos amigos) {
+		this.amigos = amigos;
+	}
+
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
 	}
 
 	@PreUpdate

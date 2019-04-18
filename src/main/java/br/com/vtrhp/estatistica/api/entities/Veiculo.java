@@ -21,6 +21,7 @@ public class Veiculo implements Serializable {
 	private Long idVeiculo;
 	private Long idPessoa;
 	private Long idFamilia;
+	private Long idAmigo;
 	private LocalDate dataCompra;
 	private LocalDate dataVenda;
 	private String tipo;
@@ -36,6 +37,9 @@ public class Veiculo implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Amigos amigo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Familia familia;
@@ -158,6 +162,22 @@ public class Veiculo implements Serializable {
 
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
+	}
+
+	public Amigos getAmigo() {
+		return amigo;
+	}
+
+	public void setAmigo(Amigos amigo) {
+		this.amigo = amigo;
 	}
 
 	@PreUpdate

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -23,6 +23,8 @@ public class Profissao implements Serializable {
 	@Id
 	private Long idProfissao;
 	private Long idPessoa;
+	private Long idAmigo;
+	private Long IdFamilia;
 	private String nomeEmpresa;
 	private String profissao;
 	private String cargo;
@@ -37,8 +39,14 @@ public class Profissao implements Serializable {
 	private LocalDate dataDemissao;
 	private LocalDate dataContratacao;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Amigos amigos;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Familia familia;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -185,6 +193,38 @@ public class Profissao implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
+	}
+
+	public Amigos getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(Amigos amigos) {
+		this.amigos = amigos;
+	}
+
+	public Long getIdFamilia() {
+		return IdFamilia;
+	}
+
+	public void setIdFamilia(Long idFamilia) {
+		IdFamilia = idFamilia;
+	}
+
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
 	}
 
 	@PreUpdate

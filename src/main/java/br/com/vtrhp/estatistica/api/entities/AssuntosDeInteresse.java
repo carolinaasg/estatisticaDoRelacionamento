@@ -23,12 +23,21 @@ public class AssuntosDeInteresse implements Serializable{
 
 	@Id	
 	private Long idAssuntosDeInteresse;
+	private Long idPessoa;
+	private Long idFamilia;
+	private Long idAmigo;
 
 	private NivelENum nivel;
 	private AssuntosInteresseEnum assuntosInteresse;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Familia familia;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Amigos amigo;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -79,6 +88,46 @@ public class AssuntosDeInteresse implements Serializable{
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public Long getIdFamilia() {
+		return idFamilia;
+	}
+
+	public void setIdFamilia(Long idFamilia) {
+		this.idFamilia = idFamilia;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
+	}
+
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
+	}
+
+	public Amigos getAmigo() {
+		return amigo;
+	}
+
+	public void setAmigo(Amigos amigo) {
+		this.amigo = amigo;
 	}
 
 	@PreUpdate

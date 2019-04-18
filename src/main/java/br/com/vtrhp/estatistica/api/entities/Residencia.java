@@ -25,6 +25,7 @@ public class Residencia implements Serializable {
 	@Id
 	private Long idResidencia;
 	private Long idPessoa;
+	private Long idAmigo;
 	private String endereco;
 	private Integer numero;
 	private String complemento;
@@ -42,6 +43,9 @@ public class Residencia implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Amigos amigos;
 
 	public Long getIdResidencia() {
 		return idResidencia;
@@ -153,6 +157,22 @@ public class Residencia implements Serializable {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public Amigos getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(Amigos amigos) {
+		this.amigos = amigos;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
 	}
 
 	@PreUpdate

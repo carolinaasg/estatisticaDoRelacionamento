@@ -23,6 +23,7 @@ public class Falecimento implements Serializable {
 	private Long idFalecimento;
 	private Long idPessoa;
 	private Long idFamilia;
+	private Long idAmigo;
 	private String motivo;
 	private LocalDate data;
 	private LocalTime hora;
@@ -33,6 +34,9 @@ public class Falecimento implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Familia familia;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	private Amigos amigo;
 
 	// Manutenção da Tabela
 	private LocalDate dataCriacao;
@@ -124,6 +128,22 @@ public class Falecimento implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
+	}
+
+	public Amigos getAmigo() {
+		return amigo;
+	}
+
+	public void setAmigo(Amigos amigo) {
+		this.amigo = amigo;
 	}
 
 	@PreUpdate
