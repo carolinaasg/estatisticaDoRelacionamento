@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -22,47 +23,48 @@ import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
-public class Familia implements Serializable{	
-	
+public class Familia implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4217903259530478432L;
 	@Id
-	private Long idFamilia;	
+	private Long idFamilia;
 	private Long idPessoa;
 	private Long idRelacaoFamilia;
-	private String nome;	
-	private LocalDate dataNascimento;	
-	private LocalTime horaNascimento;	
-	private Double altura;	
-	private Double peso;	
-	private String estadoNascimento;	
+	private Long idFalecimento;
+	private String nome;
+	private LocalDate dataNascimento;
+	private LocalTime horaNascimento;
+	private Double altura;
+	private Double peso;
+	private String estadoNascimento;
 	private String cidadeNascimento;
 	private char adotivo;
-	private LocalDate dataFalecimento;
-	private LocalTime horaFalecimento;
 
-	
-	@Enumerated(EnumType.STRING)	
+	@Enumerated(EnumType.STRING)
 	private OrientacaoSexualEnum orientacaoSexual;
-	@Enumerated(EnumType.STRING)	
+	@Enumerated(EnumType.STRING)
 	private PaisesEnum paisDeOrigem;
-	@Enumerated(EnumType.STRING)	
-	private NacionalidadeEnum nacionalidade;	
-	@Enumerated(EnumType.STRING)	
+	@Enumerated(EnumType.STRING)
+	private NacionalidadeEnum nacionalidade;
+	@Enumerated(EnumType.STRING)
 	private SignosEnum signo;
-	
+
 	private String descendencia;
 	private Integer tamanhoPe;
 	private String grauDeParentesco;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
 
+	@OneToOne(mappedBy = "familia", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Falecimento falecimento;
+
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<RelacaoComFamilia> relacaoComFamilia;
-	
+
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PontosPositivosFamilia> pontosPositivosFamilia;
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -70,11 +72,10 @@ public class Familia implements Serializable{
 	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ContatoComFamilia> contatoComFamilia;
 
-
-	// Manutenção da Tabela	
-	private LocalDate dataCriacao;	
+	// Manutenção da Tabela
+	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
-	
+
 	public Long getIdFamilia() {
 		return idFamilia;
 	}
@@ -97,6 +98,14 @@ public class Familia implements Serializable{
 
 	public void setIdRelacaoFamilia(Long idRelacaoFamilia) {
 		this.idRelacaoFamilia = idRelacaoFamilia;
+	}
+
+	public Long getIdFalecimento() {
+		return idFalecimento;
+	}
+
+	public void setIdFalecimento(Long idFalecimento) {
+		this.idFalecimento = idFalecimento;
 	}
 
 	public String getNome() {
@@ -227,44 +236,20 @@ public class Familia implements Serializable{
 		this.pessoa = pessoa;
 	}
 
+	public Falecimento getFalecimento() {
+		return falecimento;
+	}
+
+	public void setFalecimento(Falecimento falecimento) {
+		this.falecimento = falecimento;
+	}
+
 	public List<RelacaoComFamilia> getRelacaoComFamilia() {
 		return relacaoComFamilia;
 	}
 
 	public void setRelacaoComFamilia(List<RelacaoComFamilia> relacaoComFamilia) {
 		this.relacaoComFamilia = relacaoComFamilia;
-	}
-
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public LocalDate getDataFalecimento() {
-		return dataFalecimento;
-	}
-
-	public void setDataFalecimento(LocalDate dataFalecimento) {
-		this.dataFalecimento = dataFalecimento;
-	}
-
-	public LocalTime getHoraFalecimento() {
-		return horaFalecimento;
-	}
-
-	public void setHoraFalecimento(LocalTime horaFalecimento) {
-		this.horaFalecimento = horaFalecimento;
 	}
 
 	public List<PontosPositivosFamilia> getPontosPositivosFamilia() {
@@ -291,6 +276,22 @@ public class Familia implements Serializable{
 		this.contatoComFamilia = contatoComFamilia;
 	}
 
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
 	@PreUpdate
 	public void preUpdate() {
 		dataAtualizacao = LocalDate.now();
@@ -301,6 +302,5 @@ public class Familia implements Serializable{
 		final LocalDate atual = LocalDate.now();
 		dataAtualizacao = atual;
 	}
-
 
 }

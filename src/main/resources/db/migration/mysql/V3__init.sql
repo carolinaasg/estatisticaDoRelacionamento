@@ -94,8 +94,7 @@ create table if not exists dia(
 
 create table if not exists familia(
 	idFamilia integer auto_increment primary key,
-	idPessoa integer,
-	idRelacaoFamilia integer,	
+	idPessoa integer,		
 	nome varchar(255),	
 	dataNascimento date,	
 	horaNascimento time,	
@@ -111,8 +110,6 @@ create table if not exists familia(
 	descendencia varchar(255),	
 	tamanhoPe integer,
 	grauDeParentesco varchar(255),	
-	dataFalecimento date,
-	horaFalecimento date,
 	dataCriacao date,	
 	dataAtualizacao date
 )engine = innodb;
@@ -130,7 +127,6 @@ create table if not exists relacaoComFamilia(
 	dataCriacao date,	
 	dataAtualizacao date
 )engine = innodb;
-
 
 create table if not exists pontosPositivosFamilia(
 	idPontosPositivosFamilia integer auto_increment primary key,
@@ -169,6 +165,20 @@ create table if not exists contatoComFamilia(
 	dataAtualizacao date
 )engine = innodb;
 
+create table if not exists Falecimento(
+	idFalecimento integer auto_increment primary key,
+	idPessoa integer,
+	idFamilia integer,
+	motivo varchar(4000),
+	data date,
+	hora time,
+	descricao varchar(4000),
+	dataCriacao date,
+	dataAtualizacao date
+)engine = innodb;
+
+
+
 
 alter table residencia add constraint fk_residencia foreign key (idPessoa) references pessoa (idPessoa);
 alter table assuntosDeInteresse add constraint fk_assuntosDeInteresse foreign key (idPessoa) references pessoa (idPessoa); 
@@ -180,4 +190,7 @@ alter table RelacaoComFamilia add constraint fk_relacaoComFamilia foreign key (i
 alter table PontosPositivosFamilia add constraint fk_pontosPositivosFamilia foreign key (idFamilia) references familia (idFamilia);
 alter table PontosNegativosFamilia add constraint fk_pontosNegativosFamilia foreign key (idFamilia) references familia (idFamilia);
 alter table contatoComFamilia add constraint fk_contatoComFamilia foreign key (idFamilia) references familia (idFamilia);
+alter table falecimento add constraint fk_falecimentoPessoa foreign key (idPessoa) references pessoa (idPessoa);
+alter table falecimento add constraint fk_falecimentoFamilia foreign key (idFamilia) references familia (idFamilia);
+
 

@@ -53,6 +53,8 @@ public class Pessoa implements Serializable {
 	@OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private OndeConheci ondeConheci;
 	
+	@OneToOne(mappedBy = "pessoa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Falecimento falecimento;
 	
 
 	// LISTAS
