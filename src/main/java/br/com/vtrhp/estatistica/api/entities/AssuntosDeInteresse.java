@@ -14,14 +14,11 @@ import br.com.vtrhp.estatistica.api.enums.AssuntosInteresseEnum;
 import br.com.vtrhp.estatistica.api.enums.NivelENum;
 
 @Entity
-public class AssuntosDeInteresse implements Serializable{
+public class AssuntosDeInteresse implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1535328936453273480L;
 
-	@Id	
+	@Id
 	private Long idAssuntosDeInteresse;
 	private Long idPessoa;
 	private Long idFamilia;
@@ -29,15 +26,15 @@ public class AssuntosDeInteresse implements Serializable{
 
 	private NivelENum nivel;
 	private AssuntosInteresseEnum assuntosInteresse;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Pessoa pessoa;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Amigos amigo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Familia familia;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -81,7 +78,7 @@ public class AssuntosDeInteresse implements Serializable{
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -137,7 +134,7 @@ public class AssuntosDeInteresse implements Serializable{
 
 	@PrePersist
 	public void prePersist() {
-		final LocalDate atual = LocalDate.now();		
+		final LocalDate atual = LocalDate.now();
 		dataAtualizacao = atual;
 	}
 

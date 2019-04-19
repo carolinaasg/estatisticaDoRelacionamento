@@ -17,9 +17,6 @@ import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 @Entity
 public class Residencia implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1100325593268914306L;
 
 	@Id

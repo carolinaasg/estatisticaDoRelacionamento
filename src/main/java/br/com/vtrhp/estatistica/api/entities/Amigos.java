@@ -2,56 +2,29 @@ package br.com.vtrhp.estatistica.api.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
-import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
-import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
-import br.com.vtrhp.estatistica.api.enums.SignosEnum;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @Entity
 public class Amigos implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2028297871956417466L;
-
-	@Id
-	private Long idAmigo;
-	private Long idPessoa;
-	private String nome;
-	private LocalDate dataNascimento;
-	private LocalTime horaNascimento;
-	private Double altura;
-	private Double peso;
-	private String estadoNascimento;
-	private String cidadeNascimento;
-	@Enumerated(EnumType.STRING)
-	private OrientacaoSexualEnum orientacaoSexual;
-	@Enumerated(EnumType.STRING)
-	private PaisesEnum paisDeOrigem;
-	@Enumerated(EnumType.STRING)
-	private NacionalidadeEnum nacionalidade;
-	private char adotivo;
-	@Enumerated(EnumType.STRING)
-	private SignosEnum signo;
-	private String descendencia;
-	private Integer tamanhoPe;
-
-	@ManyToOne(fetch = FetchType.EAGER)
+	
+	private Long IdAmigo;
+	
 	private Pessoa pessoa;
+	
+	// Manutenção da Tabela
+	private LocalDate dataCriacao;
+	private LocalDate dataAtualizacao;
+	
 
 	@OneToOne(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private OndeConheci ondeConheci;
@@ -71,137 +44,33 @@ public class Amigos implements Serializable {
 
 	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Veiculo> veiculo;
+	
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Deficiencia deficiencia;
 
-	// Manutenção da Tabela
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
 
 	public Long getIdAmigo() {
-		return idAmigo;
+		return IdAmigo;
 	}
 
 	public void setIdAmigo(Long idAmigo) {
-		this.idAmigo = idAmigo;
+		IdAmigo = idAmigo;
 	}
 
-	public Long getIdPessoa() {
-		return idPessoa;
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
 	}
 
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
-	public String getNome() {
-		return nome;
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public LocalTime getHoraNascimento() {
-		return horaNascimento;
-	}
-
-	public void setHoraNascimento(LocalTime horaNascimento) {
-		this.horaNascimento = horaNascimento;
-	}
-
-	public Double getAltura() {
-		return altura;
-	}
-
-	public void setAltura(Double altura) {
-		this.altura = altura;
-	}
-
-	public Double getPeso() {
-		return peso;
-	}
-
-	public void setPeso(Double peso) {
-		this.peso = peso;
-	}
-
-	public String getEstadoNascimento() {
-		return estadoNascimento;
-	}
-
-	public void setEstadoNascimento(String estadoNascimento) {
-		this.estadoNascimento = estadoNascimento;
-	}
-
-	public String getCidadeNascimento() {
-		return cidadeNascimento;
-	}
-
-	public void setCidadeNascimento(String cidadeNascimento) {
-		this.cidadeNascimento = cidadeNascimento;
-	}
-
-	public OrientacaoSexualEnum getOrientacaoSexual() {
-		return orientacaoSexual;
-	}
-
-	public void setOrientacaoSexual(OrientacaoSexualEnum orientacaoSexual) {
-		this.orientacaoSexual = orientacaoSexual;
-	}
-
-	public PaisesEnum getPaisDeOrigem() {
-		return paisDeOrigem;
-	}
-
-	public void setPaisDeOrigem(PaisesEnum paisDeOrigem) {
-		this.paisDeOrigem = paisDeOrigem;
-	}
-
-	public NacionalidadeEnum getNacionalidade() {
-		return nacionalidade;
-	}
-
-	public void setNacionalidade(NacionalidadeEnum nacionalidade) {
-		this.nacionalidade = nacionalidade;
-	}
-
-	public char getAdotivo() {
-		return adotivo;
-	}
-
-	public void setAdotivo(char adotivo) {
-		this.adotivo = adotivo;
-	}
-
-	public SignosEnum getSigno() {
-		return signo;
-	}
-
-	public void setSigno(SignosEnum signo) {
-		this.signo = signo;
-	}
-
-	public String getDescendencia() {
-		return descendencia;
-	}
-
-	public void setDescendencia(String descendencia) {
-		this.descendencia = descendencia;
-	}
-
-	public Integer getTamanhoPe() {
-		return tamanhoPe;
-	}
-
-	public void setTamanhoPe(Integer tamanhoPe) {
-		this.tamanhoPe = tamanhoPe;
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public Pessoa getPessoa() {
@@ -260,20 +129,25 @@ public class Amigos implements Serializable {
 		this.veiculo = veiculo;
 	}
 
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
+	public Deficiencia getDeficiencia() {
+		return deficiencia;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDeficiencia(Deficiencia deficiencia) {
+		this.deficiencia = deficiencia;
 	}
 
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
+
+
+	@PreUpdate
+	public void preUpdate() {
+		dataAtualizacao = LocalDate.now();
 	}
 
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
+	@PrePersist
+	public void prePersist() {
+		final LocalDate atual = LocalDate.now();
+		dataAtualizacao = atual;
 	}
 
 }
