@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.slf4j.Logger;
@@ -26,9 +25,8 @@ import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SexoEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
+import br.com.vtrhp.estatistica.api.response.Response;
 import br.com.vtrhp.estatistica.api.service.ConjugeService;
-
-
 
 @RestController
 @RequestMapping("/api/conjuge")
@@ -150,7 +148,7 @@ public class ConjugeController {
 
 		return conjugeDTO;
 	}
-	
+
 	private void validarConjuge(ConjugeDTO conjugeDTO, BindingResult result) {
 		if (conjugeDTO.getIdConjuge() == null) {
 			result.addError(new ObjectError("conjuge", "Conjuge não informado."));

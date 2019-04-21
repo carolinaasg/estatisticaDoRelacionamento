@@ -20,6 +20,19 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>javax.money</groupId>
+			<artifactId>money-api</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.javamoney/moneta -->
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta</artifactId>
+			<version>1.3</version>
+			<type>pom</type>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
