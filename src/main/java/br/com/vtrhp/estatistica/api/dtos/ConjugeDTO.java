@@ -3,8 +3,6 @@ package br.com.vtrhp.estatistica.api.dtos;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
-
 public class ConjugeDTO {
 
 	private Long idConjuge;
@@ -20,13 +18,16 @@ public class ConjugeDTO {
 	private LocalTime horaNascimento;
 	private String estadoNascimento;
 	private String cidadeNascimento;
-	private OrientacaoSexualEnum orientacaoSexual;
+	private String orientacaoSexual;
 	private String paisDeOrigem;
 	private String nacionalidade;
 	private char adotivo;
 	private String signo;
 	private String descendencia;
 	private Integer tamanhoPe;
+
+	public ConjugeDTO() {
+	}
 
 	public Long getIdConjuge() {
 		return idConjuge;
@@ -132,11 +133,11 @@ public class ConjugeDTO {
 		this.cidadeNascimento = cidadeNascimento;
 	}
 
-	public OrientacaoSexualEnum getOrientacaoSexual() {
+	public String getOrientacaoSexual() {
 		return orientacaoSexual;
 	}
 
-	public void setOrientacaoSexual(OrientacaoSexualEnum orientacaoSexual) {
+	public void setOrientacaoSexual(String orientacaoSexual) {
 		this.orientacaoSexual = orientacaoSexual;
 	}
 
