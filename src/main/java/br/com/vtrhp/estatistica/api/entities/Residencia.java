@@ -1,16 +1,11 @@
 package br.com.vtrhp.estatistica.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 
@@ -35,14 +30,8 @@ public class Residencia implements Serializable {
 	private String qtoTempoMora;
 	private String moraCom;
 	private String relacionamentoComVizinhos;
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Amigos amigos;
+
 
 	public Long getIdResidencia() {
 		return idResidencia;
@@ -132,37 +121,7 @@ public class Residencia implements Serializable {
 		this.relacionamentoComVizinhos = relacionamentoComVizinhos;
 	}
 
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Amigos getAmigos() {
-		return amigos;
-	}
-
-	public void setAmigos(Amigos amigos) {
-		this.amigos = amigos;
-	}
 
 	public Long getIdAmigo() {
 		return idAmigo;
@@ -170,17 +129,6 @@ public class Residencia implements Serializable {
 
 	public void setIdAmigo(Long idAmigo) {
 		this.idAmigo = idAmigo;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
 	}
 
 }

@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -35,14 +33,6 @@ public class Veiculo implements Serializable {
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Amigos amigo;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
 
 	public Long getIdVeiculo() {
 		return idVeiculo;
@@ -148,21 +138,7 @@ public class Veiculo implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Familia getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
-	}
 
 	public Long getIdAmigo() {
 		return idAmigo;
@@ -172,13 +148,7 @@ public class Veiculo implements Serializable {
 		this.idAmigo = idAmigo;
 	}
 
-	public Amigos getAmigo() {
-		return amigo;
-	}
 
-	public void setAmigo(Amigos amigo) {
-		this.amigo = amigo;
-	}
 
 	@PreUpdate
 	public void preUpdate() {

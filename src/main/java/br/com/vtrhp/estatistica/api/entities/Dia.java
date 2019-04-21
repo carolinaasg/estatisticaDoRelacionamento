@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -29,8 +27,6 @@ public class Dia implements Serializable{
 	private String pontosPositivos;
 	private String pontosNegativos;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -99,13 +95,6 @@ public class Dia implements Serializable{
 		this.pontosNegativos = pontosNegativos;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
 
 	public LocalDate getDataCriacao() {
 		return dataCriacao;

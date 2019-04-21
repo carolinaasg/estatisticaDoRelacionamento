@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -38,15 +36,6 @@ public class Profissao implements Serializable {
 	private Integer qtdSubordinados;
 	private LocalDate dataDemissao;
 	private LocalDate dataContratacao;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Amigos amigos;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -171,14 +160,6 @@ public class Profissao implements Serializable {
 		this.dataContratacao = dataContratacao;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
@@ -203,28 +184,12 @@ public class Profissao implements Serializable {
 		this.idAmigo = idAmigo;
 	}
 
-	public Amigos getAmigos() {
-		return amigos;
-	}
-
-	public void setAmigos(Amigos amigos) {
-		this.amigos = amigos;
-	}
-
 	public Long getIdFamilia() {
 		return IdFamilia;
 	}
 
 	public void setIdFamilia(Long idFamilia) {
 		IdFamilia = idFamilia;
-	}
-
-	public Familia getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
 	}
 
 	@PreUpdate

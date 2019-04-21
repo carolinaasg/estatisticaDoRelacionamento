@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -34,11 +32,7 @@ public class OndeConheci implements Serializable {
 	private LocalDate data;
 	private LocalTime hora;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	private Amigos amigos;
+
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -131,21 +125,7 @@ public class OndeConheci implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Amigos getAmigos() {
-		return amigos;
-	}
-
-	public void setAmigos(Amigos amigos) {
-		this.amigos = amigos;
-	}
 
 	public Long getIdPessoa() {
 		return idPessoa;

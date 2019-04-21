@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -29,8 +27,7 @@ public class RelacaoComFamilia implements Serializable{
 	private StatusRelacaoEnum statusRelacao;
 	private LocalDate dataEvento;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
+
 	
 	// Manutenção da Tabela	
 	private LocalDate dataCriacao;	
@@ -92,13 +89,7 @@ public class RelacaoComFamilia implements Serializable{
 		this.dataEvento = dataEvento;
 	}
 
-	public Familia getFamilia() {
-		return familia;
-	}
 
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
-	}
 
 	public LocalDate getDataCriacao() {
 		return dataCriacao;

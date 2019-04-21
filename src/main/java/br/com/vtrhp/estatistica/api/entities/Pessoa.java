@@ -15,27 +15,13 @@ import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 public class Pessoa {
 
-	private Long idFamilia;
-	private Long idRelacaoFamilia;
-	private Long idAmigo;
-	private Long idProfissao;
-	private Long idVeiculo;
-	private Long idResidencia;
-	private Long idAssuntosDeInteresse;
-	private Long idContatoComFamilia;
-	private Long idDia;
-	private Long idOndeConheci;
-	private Long idPontosNegativosFamilia;
-	private Long idPontosPositivosFamilia;
-	private Long idFalecimento;
-	private Long idDeficiencia;
-
 	private String nome;
 	private String sobreNome;
 	private Double altura;
 	private Double peso;
 	private String corOlhos;
 	private String corCabelo;
+	private String tipoSanguineo;
 	@Enumerated(EnumType.STRING)
 	private SexoEnum sexo;
 	private LocalDate dataNascimento;
@@ -53,6 +39,7 @@ public class Pessoa {
 	private SignosEnum signo;
 	private String descendencia;
 	private Integer tamanhoPe;
+
 	private String grauDeParentesco;
 	private List<Deficiencia> deficiencia;
 	private List<Veiculo> veiculo;
@@ -72,117 +59,8 @@ public class Pessoa {
 	private Documentos documentos;
 	private List<Objetivos> objetivos;
 
-	public Long getIdFamilia() {
-		return idFamilia;
-	}
-
-	public void setIdFamilia(Long idFamilia) {
-		this.idFamilia = idFamilia;
-	}
-
-	public Long getIdRelacaoFamilia() {
-		return idRelacaoFamilia;
-	}
-
-	public void setIdRelacaoFamilia(Long idRelacaoFamilia) {
-		this.idRelacaoFamilia = idRelacaoFamilia;
-	}
-
-	public Long getIdAmigo() {
-		return idAmigo;
-	}
-
-	public void setIdAmigo(Long idAmigo) {
-		this.idAmigo = idAmigo;
-	}
-
-	public Long getIdProfissao() {
-		return idProfissao;
-	}
-
-	public void setIdProfissao(Long idProfissao) {
-		this.idProfissao = idProfissao;
-	}
-
-	public Long getIdVeiculo() {
-		return idVeiculo;
-	}
-
-	public void setIdVeiculo(Long idVeiculo) {
-		this.idVeiculo = idVeiculo;
-	}
-
-	public Long getIdResidencia() {
-		return idResidencia;
-	}
-
-	public void setIdResidencia(Long idResidencia) {
-		this.idResidencia = idResidencia;
-	}
-
-	public Long getIdAssuntosDeInteresse() {
-		return idAssuntosDeInteresse;
-	}
-
-	public void setIdAssuntosDeInteresse(Long idAssuntosDeInteresse) {
-		this.idAssuntosDeInteresse = idAssuntosDeInteresse;
-	}
-
-	public Long getIdContatoComFamilia() {
-		return idContatoComFamilia;
-	}
-
-	public void setIdContatoComFamilia(Long idContatoComFamilia) {
-		this.idContatoComFamilia = idContatoComFamilia;
-	}
-
-	public Long getIdDia() {
-		return idDia;
-	}
-
-	public void setIdDia(Long idDia) {
-		this.idDia = idDia;
-	}
-
-	public Long getIdOndeConheci() {
-		return idOndeConheci;
-	}
-
-	public void setIdOndeConheci(Long idOndeConheci) {
-		this.idOndeConheci = idOndeConheci;
-	}
-
-	public Long getIdPontosNegativosFamilia() {
-		return idPontosNegativosFamilia;
-	}
-
-	public void setIdPontosNegativosFamilia(Long idPontosNegativosFamilia) {
-		this.idPontosNegativosFamilia = idPontosNegativosFamilia;
-	}
-
-	public Long getIdPontosPositivosFamilia() {
-		return idPontosPositivosFamilia;
-	}
-
-	public void setIdPontosPositivosFamilia(Long idPontosPositivosFamilia) {
-		this.idPontosPositivosFamilia = idPontosPositivosFamilia;
-	}
-
-	public Long getIdFalecimento() {
-		return idFalecimento;
-	}
-
-	public void setIdFalecimento(Long idFalecimento) {
-		this.idFalecimento = idFalecimento;
-	}
-
-	public Long getIdDeficiencia() {
-		return idDeficiencia;
-	}
-
-	public void setIdDeficiencia(Long idDeficiencia) {
-		this.idDeficiencia = idDeficiencia;
-	}
+	private LocalDate dataCriacao;
+	private LocalDate dataAtualizacao;
 
 	public String getNome() {
 		return nome;
@@ -230,6 +108,14 @@ public class Pessoa {
 
 	public void setCorCabelo(String corCabelo) {
 		this.corCabelo = corCabelo;
+	}
+
+	public String getTipoSanguineo() {
+		return tipoSanguineo;
+	}
+
+	public void setTipoSanguineo(String tipoSanguineo) {
+		this.tipoSanguineo = tipoSanguineo;
 	}
 
 	public SexoEnum getSexo() {
@@ -470,6 +356,22 @@ public class Pessoa {
 
 	public void setObjetivos(List<Objetivos> objetivos) {
 		this.objetivos = objetivos;
+	}
+
+	public LocalDate getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDate dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 
 }

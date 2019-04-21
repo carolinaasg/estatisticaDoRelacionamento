@@ -4,11 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import br.com.vtrhp.estatistica.api.enums.AssuntosInteresseEnum;
 import br.com.vtrhp.estatistica.api.enums.NivelENum;
@@ -20,21 +16,14 @@ public class AssuntosDeInteresse implements Serializable {
 
 	@Id
 	private Long idAssuntosDeInteresse;
-	private Long idPessoa;
+	private Long idConjuge;
 	private Long idFamilia;
 	private Long idAmigo;
 
 	private NivelENum nivel;
 	private AssuntosInteresseEnum assuntosInteresse;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Amigos amigo;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -79,20 +68,14 @@ public class AssuntosDeInteresse implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+
+
+	public Long getIdConjuge() {
+		return idConjuge;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setIdConjuge(Long idConjuge) {
+		this.idConjuge = idConjuge;
 	}
 
 	public Long getIdFamilia() {
@@ -111,31 +94,6 @@ public class AssuntosDeInteresse implements Serializable {
 		this.idAmigo = idAmigo;
 	}
 
-	public Familia getFamilia() {
-		return familia;
-	}
 
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
-	}
-
-	public Amigos getAmigo() {
-		return amigo;
-	}
-
-	public void setAmigo(Amigos amigo) {
-		this.amigo = amigo;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
-	}
 
 }

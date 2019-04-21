@@ -1,34 +1,12 @@
-package br.com.vtrhp.estatistica.api.entities;
+package br.com.vtrhp.estatistica.api.dtos;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-
-import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
 import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
-import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
-import br.com.vtrhp.estatistica.api.enums.SexoEnum;
-import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
-@Entity
-public class Conjuge implements Serializable {
+public class ConjugeDTO {
 
-	public Conjuge() {
-	}
-
-	private static final long serialVersionUID = -1707746636693347841L;
-
-	@Id
 	private Long idConjuge;
 	private String nome;
 	private String sobreNome;
@@ -37,40 +15,18 @@ public class Conjuge implements Serializable {
 	private String corOlhos;
 	private String corCabelo;
 	private String tipoSanguineo;
-	@Enumerated(EnumType.STRING)
-	private SexoEnum sexo;
+	private String sexo;
 	private LocalDate dataNascimento;
 	private LocalTime horaNascimento;
 	private String estadoNascimento;
 	private String cidadeNascimento;
-	@Enumerated(EnumType.STRING)
 	private OrientacaoSexualEnum orientacaoSexual;
-	@Enumerated(EnumType.STRING)
-	private PaisesEnum paisDeOrigem;
-	@Enumerated(EnumType.STRING)
-	private NacionalidadeEnum nacionalidade;
+	private String paisDeOrigem;
+	private String nacionalidade;
 	private char adotivo;
-	@Enumerated(EnumType.STRING)
-	private SignosEnum signo;
+	private String signo;
 	private String descendencia;
 	private Integer tamanhoPe;
-
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataCriacao = atual;
-		dataAtualizacao = atual;
-	}
-
-	private Documentos documentos;
 
 	public Long getIdConjuge() {
 		return idConjuge;
@@ -136,11 +92,11 @@ public class Conjuge implements Serializable {
 		this.tipoSanguineo = tipoSanguineo;
 	}
 
-	public SexoEnum getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(SexoEnum sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
@@ -184,19 +140,19 @@ public class Conjuge implements Serializable {
 		this.orientacaoSexual = orientacaoSexual;
 	}
 
-	public PaisesEnum getPaisDeOrigem() {
+	public String getPaisDeOrigem() {
 		return paisDeOrigem;
 	}
 
-	public void setPaisDeOrigem(PaisesEnum paisDeOrigem) {
+	public void setPaisDeOrigem(String paisDeOrigem) {
 		this.paisDeOrigem = paisDeOrigem;
 	}
 
-	public NacionalidadeEnum getNacionalidade() {
+	public String getNacionalidade() {
 		return nacionalidade;
 	}
 
-	public void setNacionalidade(NacionalidadeEnum nacionalidade) {
+	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
 
@@ -208,11 +164,11 @@ public class Conjuge implements Serializable {
 		this.adotivo = adotivo;
 	}
 
-	public SignosEnum getSigno() {
+	public String getSigno() {
 		return signo;
 	}
 
-	public void setSigno(SignosEnum signo) {
+	public void setSigno(String signo) {
 		this.signo = signo;
 	}
 
@@ -232,41 +188,15 @@ public class Conjuge implements Serializable {
 		this.tamanhoPe = tamanhoPe;
 	}
 
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public Documentos getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(Documentos documentos) {
-		this.documentos = documentos;
-	}
-
 	@Override
 	public String toString() {
-		return "Conjuge [idConjuge=" + idConjuge + ", nome=" + nome + ", sobreNome=" + sobreNome + ", altura=" + altura
-				+ ", peso=" + peso + ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo="
+		return "ConjugeDTO [idConjuge=" + idConjuge + ", nome=" + nome + ", sobreNome=" + sobreNome + ", altura="
+				+ altura + ", peso=" + peso + ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo="
 				+ tipoSanguineo + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento="
 				+ horaNascimento + ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
 				+ ", orientacaoSexual=" + orientacaoSexual + ", paisDeOrigem=" + paisDeOrigem + ", nacionalidade="
 				+ nacionalidade + ", adotivo=" + adotivo + ", signo=" + signo + ", descendencia=" + descendencia
-				+ ", tamanhoPe=" + tamanhoPe + ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao
-				+ ", documentos=" + documentos + "]";
+				+ ", tamanhoPe=" + tamanhoPe + "]";
 	}
 
 }

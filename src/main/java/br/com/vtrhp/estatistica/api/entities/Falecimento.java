@@ -5,11 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 @Entity
 public class Falecimento implements Serializable {
@@ -29,18 +25,6 @@ public class Falecimento implements Serializable {
 	private LocalTime hora;
 	private String descricao;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Pessoa pessoa;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	private Familia familia;
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	private Amigos amigo;
-
-	// Manutenção da Tabela
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
 
 	public Long getIdFalecimento() {
 		return idFalecimento;
@@ -64,6 +48,14 @@ public class Falecimento implements Serializable {
 
 	public void setIdFamilia(Long idFamilia) {
 		this.idFamilia = idFamilia;
+	}
+
+	public Long getIdAmigo() {
+		return idAmigo;
+	}
+
+	public void setIdAmigo(Long idAmigo) {
+		this.idAmigo = idAmigo;
 	}
 
 	public String getMotivo() {
@@ -98,63 +90,6 @@ public class Falecimento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public Familia getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
-	}
-
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public Long getIdAmigo() {
-		return idAmigo;
-	}
-
-	public void setIdAmigo(Long idAmigo) {
-		this.idAmigo = idAmigo;
-	}
-
-	public Amigos getAmigo() {
-		return amigo;
-	}
-
-	public void setAmigo(Amigos amigo) {
-		this.amigo = amigo;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
-	}
 
 }

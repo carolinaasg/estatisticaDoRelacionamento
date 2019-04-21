@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -35,8 +33,6 @@ public class ContatoComFamilia implements Serializable {
 	private String motivo;
 	private LocalTime qtdHorasJuntos;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Familia familia;
 
 	// Manutenção da Tabela
 	private LocalDate dataCriacao;
@@ -138,13 +134,6 @@ public class ContatoComFamilia implements Serializable {
 		this.qtdHorasJuntos = qtdHorasJuntos;
 	}
 
-	public Familia getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(Familia familia) {
-		this.familia = familia;
-	}
 
 	public LocalDate getDataCriacao() {
 		return dataCriacao;

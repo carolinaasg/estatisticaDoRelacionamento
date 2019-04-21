@@ -5,8 +5,6 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 
@@ -22,9 +20,6 @@ public class Viagens implements Serializable {
 	private LocalDate data;
 	private String descricao;
 	private String motivo;
-
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
 
 	public Long getIdViagem() {
 		return idViagem;
@@ -80,33 +75,6 @@ public class Viagens implements Serializable {
 
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
-	}
-
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public LocalDate getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
 	}
 
 }

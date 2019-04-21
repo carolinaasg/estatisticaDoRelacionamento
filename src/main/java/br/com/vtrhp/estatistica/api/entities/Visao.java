@@ -35,6 +35,18 @@ public class Visao implements Serializable {
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
 
+	@PreUpdate
+	public void preUpdate() {
+		dataAtualizacao = LocalDate.now();
+	}
+
+	@PrePersist
+	public void prePersist() {
+		final LocalDate atual = LocalDate.now();
+		dataCriacao = atual;
+		dataAtualizacao = atual;
+	}
+
 	public Long getIdVisao() {
 		return idVisao;
 	}
@@ -113,17 +125,6 @@ public class Visao implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
-	}
-
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
 	}
 
 }

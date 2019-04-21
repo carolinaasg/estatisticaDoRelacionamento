@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 @Entity
 public class Documentos implements Serializable {
+	
+	public Documentos() {
+		
+	}
 
 	private static final long serialVersionUID = 2509789142018833918L;
 
@@ -21,6 +27,21 @@ public class Documentos implements Serializable {
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Conjuge conjuge;
+
+	@PreUpdate
+	public void preUpdate() {
+		dataAtualizacao = LocalDate.now();
+	}
+
+	@PrePersist
+	public void prePersist() {
+		final LocalDate atual = LocalDate.now();
+		dataCriacao = atual;
+		dataAtualizacao = atual;
+	}
 
 	public Long getIdDocumentos() {
 		return idDocumentos;
@@ -70,15 +91,12 @@ public class Documentos implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	@PreUpdate
-	public void preUpdate() {
-		dataAtualizacao = LocalDate.now();
+	public Conjuge getConjuge() {
+		return conjuge;
 	}
 
-	@PrePersist
-	public void prePersist() {
-		final LocalDate atual = LocalDate.now();
-		dataAtualizacao = atual;
+	public void setConjuge(Conjuge conjuge) {
+		this.conjuge = conjuge;
 	}
 
 }
