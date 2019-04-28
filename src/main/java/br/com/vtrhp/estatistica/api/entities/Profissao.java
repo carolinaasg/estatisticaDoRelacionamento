@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -19,10 +21,8 @@ public class Profissao implements Serializable {
 	private static final long serialVersionUID = -4452861555374092394L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idProfissao;
-	private Long idPessoa;
-	private Long idAmigo;
-	private Long IdFamilia;
 	private String nomeEmpresa;
 	private String profissao;
 	private String cargo;
@@ -46,14 +46,6 @@ public class Profissao implements Serializable {
 
 	public void setIdProfissao(Long idProfissao) {
 		this.idProfissao = idProfissao;
-	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
 	}
 
 	public String getNomeEmpresa() {
@@ -174,22 +166,6 @@ public class Profissao implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public Long getIdAmigo() {
-		return idAmigo;
-	}
-
-	public void setIdAmigo(Long idAmigo) {
-		this.idAmigo = idAmigo;
-	}
-
-	public Long getIdFamilia() {
-		return IdFamilia;
-	}
-
-	public void setIdFamilia(Long idFamilia) {
-		IdFamilia = idFamilia;
 	}
 
 	@PreUpdate

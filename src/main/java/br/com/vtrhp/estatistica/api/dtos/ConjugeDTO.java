@@ -1,30 +1,26 @@
 package br.com.vtrhp.estatistica.api.dtos;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class ConjugeDTO {
-
 	private Long idConjuge;
 	private String nome;
-	private String sobreNome;
 	private Double altura;
 	private Double peso;
 	private String corOlhos;
 	private String corCabelo;
 	private String tipoSanguineo;
 	private String sexo;
-	private LocalDate dataNascimento;
-	private LocalTime horaNascimento;
+	private String dataNascimento;
+	private String horaNascimento;
 	private String estadoNascimento;
 	private String cidadeNascimento;
 	private String orientacaoSexual;
 	private String paisDeOrigem;
 	private String nacionalidade;
-	private char adotivo;
+	private String adotivo;
 	private String signo;
 	private String descendencia;
 	private Integer tamanhoPe;
+	private DocumentosDTO documentos;
 
 	public ConjugeDTO() {
 	}
@@ -43,14 +39,6 @@ public class ConjugeDTO {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getSobreNome() {
-		return sobreNome;
-	}
-
-	public void setSobreNome(String sobreNome) {
-		this.sobreNome = sobreNome;
 	}
 
 	public Double getAltura() {
@@ -101,19 +89,19 @@ public class ConjugeDTO {
 		this.sexo = sexo;
 	}
 
-	public LocalDate getDataNascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public LocalTime getHoraNascimento() {
+	public String getHoraNascimento() {
 		return horaNascimento;
 	}
 
-	public void setHoraNascimento(LocalTime horaNascimento) {
+	public void setHoraNascimento(String horaNascimento) {
 		this.horaNascimento = horaNascimento;
 	}
 
@@ -157,11 +145,11 @@ public class ConjugeDTO {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public char getAdotivo() {
+	public String getAdotivo() {
 		return adotivo;
 	}
 
-	public void setAdotivo(char adotivo) {
+	public void setAdotivo(String adotivo) {
 		this.adotivo = adotivo;
 	}
 
@@ -189,12 +177,21 @@ public class ConjugeDTO {
 		this.tamanhoPe = tamanhoPe;
 	}
 
+
+	public DocumentosDTO getDocumentos() {
+		return documentos;
+	}
+
+	public void setDocumentos(DocumentosDTO documentos) {
+		this.documentos = documentos;
+	}
+
 	@Override
 	public String toString() {
-		return "ConjugeDTO [idConjuge=" + idConjuge + ", nome=" + nome + ", sobreNome=" + sobreNome + ", altura="
-				+ altura + ", peso=" + peso + ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo="
-				+ tipoSanguineo + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento="
-				+ horaNascimento + ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
+		return "ConjugeDTO [idConjuge=" + idConjuge + ", nome=" + nome + ", altura=" + altura + ", peso=" + peso
+				+ ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo=" + tipoSanguineo + ", sexo="
+				+ sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento=" + horaNascimento
+				+ ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
 				+ ", orientacaoSexual=" + orientacaoSexual + ", paisDeOrigem=" + paisDeOrigem + ", nacionalidade="
 				+ nacionalidade + ", adotivo=" + adotivo + ", signo=" + signo + ", descendencia=" + descendencia
 				+ ", tamanhoPe=" + tamanhoPe + "]";

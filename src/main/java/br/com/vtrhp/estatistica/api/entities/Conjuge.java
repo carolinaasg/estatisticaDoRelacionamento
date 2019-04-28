@@ -5,15 +5,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
+import br.com.vtrhp.estatistica.api.dtos.ConjugeDTO;
 import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
 import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
@@ -21,6 +26,7 @@ import br.com.vtrhp.estatistica.api.enums.SexoEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
+@Table(name = "conjuge")
 public class Conjuge implements Serializable {
 
 	public Conjuge() {
@@ -29,33 +35,55 @@ public class Conjuge implements Serializable {
 	private static final long serialVersionUID = -1707746636693347841L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idConjuge;
+
 	private String nome;
-	private String sobreNome;
+
 	private Double altura;
+
 	private Double peso;
+
 	private String corOlhos;
+
 	private String corCabelo;
+
 	private String tipoSanguineo;
+
 	@Enumerated(EnumType.STRING)
 	private SexoEnum sexo;
+
 	private LocalDate dataNascimento;
+
 	private LocalTime horaNascimento;
+
 	private String estadoNascimento;
+
 	private String cidadeNascimento;
+
 	@Enumerated(EnumType.STRING)
 	private OrientacaoSexualEnum orientacaoSexual;
+
 	@Enumerated(EnumType.STRING)
-	private PaisesEnum paisDeOrigem;
+	private PaisesEnum paisOrigem;
+
 	@Enumerated(EnumType.STRING)
 	private NacionalidadeEnum nacionalidade;
-	private char adotivo;
+
+	private String adotivo;
+
 	@Enumerated(EnumType.STRING)
 	private SignosEnum signo;
+
 	private String descendencia;
+
 	private Integer tamanhoPe;
 
+	@OneToOne(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Documentos documentos;
+
 	private LocalDate dataCriacao;
+
 	private LocalDate dataAtualizacao;
 
 	@PreUpdate
@@ -70,8 +98,7 @@ public class Conjuge implements Serializable {
 		dataAtualizacao = atual;
 	}
 
-	private Documentos documentos;
-
+	@Column(name = "id_conjuge")
 	public Long getIdConjuge() {
 		return idConjuge;
 	}
@@ -80,6 +107,7 @@ public class Conjuge implements Serializable {
 		this.idConjuge = idConjuge;
 	}
 
+	@Column(name = "nome")
 	public String getNome() {
 		return nome;
 	}
@@ -88,14 +116,7 @@ public class Conjuge implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getSobreNome() {
-		return sobreNome;
-	}
-
-	public void setSobreNome(String sobreNome) {
-		this.sobreNome = sobreNome;
-	}
-
+	@Column(name = "altura")
 	public Double getAltura() {
 		return altura;
 	}
@@ -104,6 +125,7 @@ public class Conjuge implements Serializable {
 		this.altura = altura;
 	}
 
+	@Column(name = "peso")
 	public Double getPeso() {
 		return peso;
 	}
@@ -112,6 +134,7 @@ public class Conjuge implements Serializable {
 		this.peso = peso;
 	}
 
+	@Column(name = "cor_olhos")
 	public String getCorOlhos() {
 		return corOlhos;
 	}
@@ -120,6 +143,7 @@ public class Conjuge implements Serializable {
 		this.corOlhos = corOlhos;
 	}
 
+	@Column(name = "cor_cabelo")
 	public String getCorCabelo() {
 		return corCabelo;
 	}
@@ -128,6 +152,7 @@ public class Conjuge implements Serializable {
 		this.corCabelo = corCabelo;
 	}
 
+	@Column(name = "tipo_sanguineo")
 	public String getTipoSanguineo() {
 		return tipoSanguineo;
 	}
@@ -136,6 +161,7 @@ public class Conjuge implements Serializable {
 		this.tipoSanguineo = tipoSanguineo;
 	}
 
+	@Column(name = "sexo")
 	public SexoEnum getSexo() {
 		return sexo;
 	}
@@ -144,6 +170,7 @@ public class Conjuge implements Serializable {
 		this.sexo = sexo;
 	}
 
+	@Column(name = "data_nascimento")
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -152,6 +179,7 @@ public class Conjuge implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
+	@Column(name = "hora_nascimento")
 	public LocalTime getHoraNascimento() {
 		return horaNascimento;
 	}
@@ -160,6 +188,7 @@ public class Conjuge implements Serializable {
 		this.horaNascimento = horaNascimento;
 	}
 
+	@Column(name = "estado_nascimento")
 	public String getEstadoNascimento() {
 		return estadoNascimento;
 	}
@@ -168,6 +197,7 @@ public class Conjuge implements Serializable {
 		this.estadoNascimento = estadoNascimento;
 	}
 
+	@Column(name = "cidade_nascimento")
 	public String getCidadeNascimento() {
 		return cidadeNascimento;
 	}
@@ -176,6 +206,7 @@ public class Conjuge implements Serializable {
 		this.cidadeNascimento = cidadeNascimento;
 	}
 
+	@Column(name = "orientacao_sexual")
 	public OrientacaoSexualEnum getOrientacaoSexual() {
 		return orientacaoSexual;
 	}
@@ -184,14 +215,16 @@ public class Conjuge implements Serializable {
 		this.orientacaoSexual = orientacaoSexual;
 	}
 
-	public PaisesEnum getPaisDeOrigem() {
-		return paisDeOrigem;
+	@Column(name = "pais_origem")
+	public PaisesEnum getPaisOrigem() {
+		return paisOrigem;
 	}
 
-	public void setPaisDeOrigem(PaisesEnum paisDeOrigem) {
-		this.paisDeOrigem = paisDeOrigem;
+	public void setPaisOrigem(PaisesEnum paisOrigem) {
+		this.paisOrigem = paisOrigem;
 	}
 
+	@Column(name = "nacionalidade")
 	public NacionalidadeEnum getNacionalidade() {
 		return nacionalidade;
 	}
@@ -200,14 +233,16 @@ public class Conjuge implements Serializable {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public char getAdotivo() {
+	@Column(name = "adotivo")
+	public String getAdotivo() {
 		return adotivo;
 	}
 
-	public void setAdotivo(char adotivo) {
+	public void setAdotivo(String adotivo) {
 		this.adotivo = adotivo;
 	}
 
+	@Column(name = "signo")
 	public SignosEnum getSigno() {
 		return signo;
 	}
@@ -216,6 +251,7 @@ public class Conjuge implements Serializable {
 		this.signo = signo;
 	}
 
+	@Column(name = "descendencia")
 	public String getDescendencia() {
 		return descendencia;
 	}
@@ -224,6 +260,7 @@ public class Conjuge implements Serializable {
 		this.descendencia = descendencia;
 	}
 
+	@Column(name = "tamanho_pe")
 	public Integer getTamanhoPe() {
 		return tamanhoPe;
 	}
@@ -232,6 +269,7 @@ public class Conjuge implements Serializable {
 		this.tamanhoPe = tamanhoPe;
 	}
 
+	@Column(name = "data_criacao")
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
@@ -240,6 +278,7 @@ public class Conjuge implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	@Column(name = "data_atualizacao")
 	public LocalDate getDataAtualizacao() {
 		return dataAtualizacao;
 	}
@@ -248,7 +287,6 @@ public class Conjuge implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public Documentos getDocumentos() {
 		return documentos;
 	}
@@ -259,14 +297,14 @@ public class Conjuge implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Conjuge [idConjuge=" + idConjuge + ", nome=" + nome + ", sobreNome=" + sobreNome + ", altura=" + altura
-				+ ", peso=" + peso + ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo="
-				+ tipoSanguineo + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento="
-				+ horaNascimento + ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
-				+ ", orientacaoSexual=" + orientacaoSexual + ", paisDeOrigem=" + paisDeOrigem + ", nacionalidade="
+		return "Conjuge [idConjuge=" + idConjuge + ", nome=" + nome + ", altura=" + altura + ", peso=" + peso
+				+ ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo=" + tipoSanguineo + ", sexo="
+				+ sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento=" + horaNascimento
+				+ ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
+				+ ", orientacaoSexual=" + orientacaoSexual + ", paisOrigem=" + paisOrigem + ", nacionalidade="
 				+ nacionalidade + ", adotivo=" + adotivo + ", signo=" + signo + ", descendencia=" + descendencia
 				+ ", tamanhoPe=" + tamanhoPe + ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao
-				+ ", documentos=" + documentos + "]";
+				+ "]";
 	}
 
 }
