@@ -50,7 +50,7 @@ public class ConjugeController {
 	@Autowired
 	private DocumentosService documentosService;
 
-	@PostMapping(path = "/conjuges", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/adicionar", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response<ConjugeDTO>> adicionar(@Valid @RequestBody ConjugeDTO conjugeDto,
 			BindingResult result) throws ParseException {
 
@@ -87,7 +87,7 @@ public class ConjugeController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/listar/{id}")
 	public ResponseEntity<Response<ConjugeDTO>> listarPorId(@PathVariable("id") Long id) {
 		log.info("Buscando lançamento por ID: {}", id);
 		Response<ConjugeDTO> response = new Response<ConjugeDTO>();
