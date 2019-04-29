@@ -62,9 +62,7 @@ public class ConjugeController {
 
 		// validarConjuge(conjugeDto, result);
 
-		Conjuge conjuge = this.converterDtoParaConjuge(conjugeDto, result);
-		
-	
+		Conjuge conjuge = this.converterDtoParaConjuge(conjugeDto, result);	
 
 		log.info("Convertido para Conjuge: {}", conjuge.toString());
 

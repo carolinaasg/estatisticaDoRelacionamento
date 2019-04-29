@@ -5,9 +5,8 @@ import org.hibernate.validator.constraints.br.CPF;
 public class DocumentosDTO {
 
 	private Long idDocumentos;
-	private Long idConjuge;
 	private String rg;
-	@CPF(message="CPF inválido")
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	private String habilitacao;
 
@@ -21,14 +20,6 @@ public class DocumentosDTO {
 
 	public void setIdDocumentos(Long idDocumentos) {
 		this.idDocumentos = idDocumentos;
-	}
-
-	public Long getIdConjuge() {
-		return idConjuge;
-	}
-
-	public void setIdConjuge(Long idConjuge) {
-		this.idConjuge = idConjuge;
 	}
 
 	public String getRg() {
@@ -57,7 +48,7 @@ public class DocumentosDTO {
 
 	@Override
 	public String toString() {
-		return "DocumentosDTO [idDocumentos=" + idDocumentos + ", idConjuge=" + idConjuge + ", rg=" + rg + ", cpf="
+		return "DocumentosDTO [idDocumentos=" + idDocumentos + ", rg=" + rg + ", cpf="
 				+ cpf + ", habilitacao=" + habilitacao + "]";
 	}
 
