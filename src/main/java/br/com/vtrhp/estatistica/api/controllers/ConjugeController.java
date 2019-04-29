@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -101,6 +102,30 @@ public class ConjugeController {
 		response.setData(this.converterConjugeDto(conjuge.get()));
 		return ResponseEntity.ok(response);
 	}
+	
+	
+	@PutMapping(value = "/atualizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response<ConjugeDTO>> atualizar(@PathVariable("id") Long id,
+			@Valid @RequestBody ConjugeDTO conjugeDTO, BindingResult result) throws ParseException {
+		log.info("Atualizando conjuge: {}", conjugeDTO.toString());
+
+		Response<ConjugeDTO> response = new Response<ConjugeDTO>();		
+		conjugeDTO.setIdConjuge(id);
+		validarConjuge(conjugeDTO, result);
+		Conjuge conjuge = this.converterDtoParaConjuge(conjugeDTO, result);
+
+		if (result.hasErrors()) {
+			log.error("Erro validando conjuge: {}", result.getAllErrors());
+			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		conjuge = this.conjugeService.persistir(conjuge);
+		response.setData(this.converterConjugeDto(conjuge));
+		return ResponseEntity.ok(response);
+	}
+
+	
 
 	private Conjuge converterDtoParaConjuge(ConjugeDTO conjugeDTO, BindingResult result) throws ParseException {
 
@@ -108,7 +133,7 @@ public class ConjugeController {
 
 		if (conjugeDTO.getIdConjuge() != null) {
 			Optional<Conjuge> lanc = this.conjugeService
-					.buscarPorId(Long.valueOf(conjugeDTO.getIdConjuge().toString()));
+					.buscarPorId(conjugeDTO.getIdConjuge());
 			if (lanc.isPresent()) {
 				conjuge = lanc.get();
 			} else {

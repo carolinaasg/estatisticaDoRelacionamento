@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -36,6 +39,11 @@ public class Profissao implements Serializable {
 	private Integer qtdSubordinados;
 	private LocalDate dataDemissao;
 	private LocalDate dataContratacao;
+	/*
+	 * @OneToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "id_conjuge", nullable = false) private Conjuge conjuge;
+	 */
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;

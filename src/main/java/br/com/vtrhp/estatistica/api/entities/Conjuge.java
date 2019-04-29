@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -81,6 +82,11 @@ public class Conjuge implements Serializable {
 
 	@OneToOne(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Documentos documentos;
+	
+	/*
+	 * @OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =
+	 * CascadeType.ALL) private Profissao profissao;
+	 */
 
 	private LocalDate dataCriacao;
 
