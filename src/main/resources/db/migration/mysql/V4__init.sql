@@ -1,5 +1,6 @@
 create table if not exists conjuge(
-	id_Conjuge integer auto_increment primary key,	
+	id_conjuge integer auto_increment primary key,
+	id_usuario integer,	
 	nome varchar(255),	
 	data_nascimento date,	
 	hora_nascimento time,	
@@ -22,14 +23,88 @@ create table if not exists conjuge(
 	data_atualizacao date
 )engine = innodb;
 
+create table if not exists usuario(
+	id_usuario integer auto_increment primary key,	
+	nome varchar(255),	
+	data_nascimento date,	
+	hora_nascimento time,	
+	altura double,	
+	peso double,
+	cor_olhos varchar(100),
+	cor_cabelo varchar(100),
+	tipo_sanguineo varchar(10),
+	sexo varchar(50),
+	estado_nascimento varchar(255),	
+	cidade_nascimento varchar(255),	
+	orientacao_sexual varchar(255),
+	pais_origem varchar(255),	
+	nacionalidade varchar(255),	
+	adotivo varchar(2),	
+	signo varchar(255),	
+	descendencia varchar(255),	
+	tamanho_pe integer,
+	data_criacao date,	
+	data_atualizacao date
+)engine = innodb;
+
+create table if not exists familia(
+	id_familia integer auto_increment primary key,
+	id_conjuge integer,	
+	id_usuario integer,
+	nome varchar(255),	
+	data_nascimento date,	
+	hora_nascimento time,	
+	altura double,	
+	peso double,	
+	cor_olhos varchar(100),
+	cor_cabelo varchar(100),
+	tipo_sanguineo varchar(10),
+	estado_nascimento varchar(255),	
+	cidade_nascimento varchar(255),	
+	orientacao_sexual varchar(255),
+	pais_origem varchar(255),	
+	nacionalidade varchar(255),	
+	adotivo varchar(2),	
+	signo varchar(255),	
+	sexo varchar(50),
+	descendencia varchar(255),	
+	tamanho_pe integer,
+	grau_parentesco varchar(255),	
+	data_criacao date,	
+	data_atualizacao date
+)engine = innodb;
+
 create table if not exists documentos(
 	id_documentos integer auto_increment primary key,
 	id_conjuge integer,
+	id_usuario integer,
 	rg varchar(255),	
 	cpf varchar(255),	
 	habilitacao varchar(255),	
 	data_criacao date,
 	data_atualizacao date
+)engine = innodb;
+
+create table if not exists profissao(
+	idProfissao integer auto_increment primary key,	
+	id_conjuge integer,
+	idAmigo integer,
+	idFamilia integer,
+	nomeEmpresa varchar(255),
+	profissao varchar(255),
+	cargo varchar(255),
+	Descricao varchar(1000),
+	tempoDeEmpresa integer,
+	gostaDoQueFaz varchar(2),
+	gostaDaEquipe varchar(2),
+	gostaDoChefe varchar(2),
+	salarioBruto double,
+	salarioLiquido double,
+	qtdSubordinados integer,
+	dataDemissao date,
+	dataContratacao date,	
+	dataCriacao date,
+	dataAtualizacao date
 )engine = innodb;
 
 create table if not exists residencia(
@@ -76,27 +151,6 @@ create table if not exists ondeConheci(
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists profissao(
-	idProfissao integer auto_increment primary key,	
-	id_conjuge integer,
-	idAmigo integer,
-	idFamilia integer,
-	nomeEmpresa varchar(255),
-	profissao varchar(255),
-	cargo varchar(255),
-	Descricao varchar(1000),
-	tempoDeEmpresa integer,
-	gostaDoQueFaz varchar(2),
-	gostaDaEquipe varchar(2),
-	gostaDoChefe varchar(2),
-	salarioBruto double,
-	salarioLiquido double,
-	qtdSubordinados integer,
-	dataDemissao date,
-	dataContratacao date,	
-	dataCriacao date,
-	dataAtualizacao date
-)engine = innodb;
 
 create table if not exists dia(
 	idDia integer auto_increment primary key,
@@ -112,27 +166,7 @@ create table if not exists dia(
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists familia(
-	idFamilia integer auto_increment primary key,
-	id_conjuge integer,		
-	nome varchar(255),	
-	dataNascimento date,	
-	horaNascimento time,	
-	altura double,	
-	peso double,	
-	estadoNascimento varchar(255),	
-	cidadeNascimento varchar(255),	
-	orientacaoSexual varchar(255),
-	paisDeOrigem varchar(255),	
-	nacionalidade varchar(255),	
-	adotivo varchar(2),	
-	signo varchar(255),	
-	descendencia varchar(255),	
-	tamanhoPe integer,
-	grauDeParentesco varchar(255),	
-	dataCriacao date,	
-	dataAtualizacao date
-)engine = innodb;
+
 
 create table if not exists relacaoComFamilia(	
 	idRelacaoFamilia integer auto_increment primary key,
@@ -260,6 +294,11 @@ create table if not exists visao(
 	dataCriacao  date,
 	dataAtualizacao date
 )engine = innodb;
+
+alter table conjuge add constraint fk_usuario_conjuge foreign key (id_usuario) references usuario (id_usuario);
+alter table documentos add constraint fk_usuario_documentos foreign key (id_usuario) references usuario (id_usuario);
+alter table familia add constraint fk_familia_usuario foreign key (id_usuario) references usuario (id_usuario);
+alter table familia add constraint fk_familia_conjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 
 alter table residencia add constraint fk_residencia foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table residencia add constraint fk_residenciaAmigo foreign key (idAmigo) references amigos (idAmigo);

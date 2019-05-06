@@ -10,19 +10,17 @@ import br.com.vtrhp.estatistica.api.repository.ConjugeRepository;
 import br.com.vtrhp.estatistica.api.service.ConjugeService;
 
 @Service
-public class ConjugeServiceImpl implements ConjugeService{
+public class ConjugeServiceImpl implements ConjugeService {
 	@Autowired
 	private ConjugeRepository conjugeRepository;
 
 	@Override
-	public  Optional<Conjuge>  buscarPorId(Long id) {
-		// TODO Auto-generated method stub
+	public Optional<Conjuge> buscarPorId(Long id) {
 		return conjugeRepository.findById(id);
 	}
 
 	@Override
 	public Conjuge persistir(Conjuge conjuge) {
-		// TODO Auto-generated method stub
 		return this.conjugeRepository.save(conjuge);
 	}
 

@@ -25,6 +25,7 @@ import br.com.vtrhp.estatistica.api.entities.Documentos;
 import br.com.vtrhp.estatistica.api.response.Response;
 import br.com.vtrhp.estatistica.api.service.ConjugeService;
 import br.com.vtrhp.estatistica.api.service.DocumentosService;
+import br.com.vtrhp.estatistica.api.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/documentos")
@@ -38,10 +39,13 @@ public class DocumentosController {
 	private DocumentosService documentosService;
 	@Autowired
 	private ConjugeService conjugeService;
+	@Autowired
+	private UsuarioService usuarioService;
 
-	@PostMapping(path = "/adicionar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/adicionar/{tipo}/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response<DocumentosDTO>> adicionar(@Valid @RequestBody DocumentosDTO documentosDto,
-			@PathVariable("id") Long id, BindingResult result) throws ParseException {
+			@PathVariable("tipo") String tipo, @PathVariable("id") Long id, BindingResult result)
+			throws ParseException {
 
 		log.info("Adicionando Documentos: {}", documentosDto.toString());
 
@@ -50,23 +54,38 @@ public class DocumentosController {
 		log.info("Response foi criado: {}", response.toString());
 
 		// validarConjuge(conjugeDto, result);
+		try {
 
-		Documentos documento = this.converterDtoParaDocumento(documentosDto, result);
-		
-		documento.setConjuge(this.conjugeService.buscarPorId(id).get());
-		documento.getConjuge().setIdConjuge(id);
+			Documentos documento = this.converterDtoParaDocumento(documentosDto, result);
+			if (tipo == null || "".equals(tipo)) {
+				log.error("Tipo não pode ser vazio: {}", tipo);
+				return ResponseEntity.badRequest().body(response);
+			} else {
+				if (tipo.equals("usuario")) {
+					documento.setUsuario(this.usuarioService.buscarPorId(id).get());
+					documento.getUsuario().setIdUsuario(id);
+				}
+				if (tipo.equals("conjuge")) {
+					documento.setConjuge(this.conjugeService.buscarPorId(id).get());
+					documento.getConjuge().setIdConjuge(id);
+				}
+			}
 
-		log.info("Convertido para Documento: {}", documento.toString());
+			log.info("Convertido para Documento: {}", documento.toString());
 
-		if (result.hasErrors()) {
-			log.error("Erro validando documentos: {}", result.getAllErrors());
-			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+			if (result.hasErrors()) {
+				log.error("Erro validando documentos: {}", result.getAllErrors());
+				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+				return ResponseEntity.badRequest().body(response);
+			}
+
+			documento = this.documentosService.persistir(documento);
+
+			response.setData(this.converterDocumentosDto(documento));
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().body(response);
 		}
-
-		documento = this.documentosService.persistir(documento);
-
-		response.setData(this.converterDocumentosDto(documento));
 		return ResponseEntity.ok(response);
 	}
 

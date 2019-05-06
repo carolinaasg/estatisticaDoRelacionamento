@@ -38,6 +38,10 @@ public class Documentos implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_conjuge", nullable = false)
 	private Conjuge conjuge;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
 
 	@PreUpdate
 	public void preUpdate() {
@@ -112,6 +116,14 @@ public class Documentos implements Serializable {
 
 	public void setConjuge(Conjuge conjuge) {
 		this.conjuge = conjuge;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

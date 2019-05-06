@@ -3,7 +3,9 @@ package br.com.vtrhp.estatistica.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,8 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -25,47 +27,73 @@ import br.com.vtrhp.estatistica.api.enums.SexoEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
 
 @Entity
-@Table(name = "familia")
-public class Familia implements Serializable {
+@Table(name = "usuario")
+public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = 5001128121913718140L;
+	private static final long serialVersionUID = -7268043098194446266L;
+
+	public Usuario() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idFamilia;
+	private Long idUsuario;
+
 	private String nome;
-	private LocalDate dataNascimento;
-	private LocalTime horaNascimento;
+
 	private Double altura;
+
 	private Double peso;
+
 	private String corOlhos;
+
 	private String corCabelo;
-	private String tipoSanguineo;	
-	private String estadoNascimento;
-	private String cidadeNascimento;
-	@Enumerated(EnumType.STRING)
-	private OrientacaoSexualEnum orientacaoSexual;
-	@Enumerated(EnumType.STRING)
-	private PaisesEnum paisOrigem;
-	@Enumerated(EnumType.STRING)
-	private NacionalidadeEnum nacionalidade;
-	private String adotivo;
-	@Enumerated(EnumType.STRING)
-	private SignosEnum signo;
+
+	private String tipoSanguineo;
+
 	@Enumerated(EnumType.STRING)
 	private SexoEnum sexo;
+
+	private LocalDate dataNascimento;
+
+	private LocalTime horaNascimento;
+
+	private String estadoNascimento;
+
+	private String cidadeNascimento;
+
+	@Enumerated(EnumType.STRING)
+	private OrientacaoSexualEnum orientacaoSexual;
+
+	@Enumerated(EnumType.STRING)
+	private PaisesEnum paisOrigem;
+
+	@Enumerated(EnumType.STRING)
+	private NacionalidadeEnum nacionalidade;
+
+	private String adotivo;
+
+	@Enumerated(EnumType.STRING)
+	private SignosEnum signo;
+
 	private String descendencia;
+
 	private Integer tamanhoPe;
-	private String grauDeParentesco;
+
+	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Documentos documentos;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Familia> familia;
+
+	/*
+	 * @OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =
+	 * CascadeType.ALL) private Profissao profissao;
+	 */
+
 	private LocalDate dataCriacao;
+
 	private LocalDate dataAtualizacao;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_conjuge", nullable = false)
-	private Conjuge conjuge;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_usuario", nullable = false)
-	private Usuario usuario;
 
 	@PreUpdate
 	public void preUpdate() {
@@ -79,13 +107,13 @@ public class Familia implements Serializable {
 		dataAtualizacao = atual;
 	}
 
-	@Column(name = "id_familia")
-	public Long getIdFamilia() {
-		return idFamilia;
+	@Column(name = "id_Usuario")
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setIdFamilia(Long idFamilia) {
-		this.idFamilia = idFamilia;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	@Column(name = "nome")
@@ -95,24 +123,6 @@ public class Familia implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	@Column(name = "data_nascimento")
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	@Column(name = "hora_nascimento")
-	public LocalTime getHoraNascimento() {
-		return horaNascimento;
-	}
-
-	public void setHoraNascimento(LocalTime horaNascimento) {
-		this.horaNascimento = horaNascimento;
 	}
 
 	@Column(name = "altura")
@@ -133,6 +143,7 @@ public class Familia implements Serializable {
 		this.peso = peso;
 	}
 
+	@Column(name = "cor_olhos")
 	public String getCorOlhos() {
 		return corOlhos;
 	}
@@ -141,6 +152,7 @@ public class Familia implements Serializable {
 		this.corOlhos = corOlhos;
 	}
 
+	@Column(name = "cor_cabelo")
 	public String getCorCabelo() {
 		return corCabelo;
 	}
@@ -149,12 +161,40 @@ public class Familia implements Serializable {
 		this.corCabelo = corCabelo;
 	}
 
+	@Column(name = "tipo_sanguineo")
 	public String getTipoSanguineo() {
 		return tipoSanguineo;
 	}
 
 	public void setTipoSanguineo(String tipoSanguineo) {
 		this.tipoSanguineo = tipoSanguineo;
+	}
+
+	@Column(name = "sexo")
+	public SexoEnum getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(SexoEnum sexo) {
+		this.sexo = sexo;
+	}
+
+	@Column(name = "data_nascimento")
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	@Column(name = "hora_nascimento")
+	public LocalTime getHoraNascimento() {
+		return horaNascimento;
+	}
+
+	public void setHoraNascimento(LocalTime horaNascimento) {
+		this.horaNascimento = horaNascimento;
 	}
 
 	@Column(name = "estado_nascimento")
@@ -220,14 +260,6 @@ public class Familia implements Serializable {
 		this.signo = signo;
 	}
 
-	public SexoEnum getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(SexoEnum sexo) {
-		this.sexo = sexo;
-	}
-
 	@Column(name = "descendencia")
 	public String getDescendencia() {
 		return descendencia;
@@ -244,15 +276,6 @@ public class Familia implements Serializable {
 
 	public void setTamanhoPe(Integer tamanhoPe) {
 		this.tamanhoPe = tamanhoPe;
-	}
-
-	@Column(name = "grau_parentesco")
-	public String getGrauDeParentesco() {
-		return grauDeParentesco;
-	}
-
-	public void setGrauDeParentesco(String grauDeParentesco) {
-		this.grauDeParentesco = grauDeParentesco;
 	}
 
 	@Column(name = "data_criacao")
@@ -273,20 +296,32 @@ public class Familia implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Conjuge getConjuge() {
-		return conjuge;
+	public Documentos getDocumentos() {
+		return documentos;
 	}
 
-	public void setConjuge(Conjuge conjuge) {
-		this.conjuge = conjuge;
+	public void setDocumentos(Documentos documentos) {
+		this.documentos = documentos;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public List<Familia> getFamilia() {
+		return familia;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setFamilia(List<Familia> familia) {
+		this.familia = familia;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nome=" + nome + ", altura=" + altura + ", peso=" + peso
+				+ ", corOlhos=" + corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo=" + tipoSanguineo + ", sexo="
+				+ sexo + ", dataNascimento=" + dataNascimento + ", horaNascimento=" + horaNascimento
+				+ ", estadoNascimento=" + estadoNascimento + ", cidadeNascimento=" + cidadeNascimento
+				+ ", orientacaoSexual=" + orientacaoSexual + ", paisOrigem=" + paisOrigem + ", nacionalidade="
+				+ nacionalidade + ", adotivo=" + adotivo + ", signo=" + signo + ", descendencia=" + descendencia
+				+ ", tamanhoPe=" + tamanhoPe + ", documentos=" + documentos + ", dataCriacao=" + dataCriacao
+				+ ", dataAtualizacao=" + dataAtualizacao + "]";
 	}
 
 }

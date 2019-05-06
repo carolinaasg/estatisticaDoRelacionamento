@@ -139,54 +139,56 @@ public class ConjugeController {
 			}
 		} else {
 			conjuge = new Conjuge();
-		}
-		if (conjugeDTO.getIdConjuge() != null && !"".equals(conjugeDTO.getIdConjuge()))
-			conjuge.setIdConjuge(conjugeDTO.getIdConjuge());
+			
+			if (conjugeDTO.getIdConjuge() != null && !"".equals(conjugeDTO.getIdConjuge()))
+				conjuge.setIdConjuge(conjugeDTO.getIdConjuge());
 
-		conjuge.setNome(conjugeDTO.getNome());
-		conjuge.setAltura(conjugeDTO.getAltura());
-		conjuge.setPeso(conjugeDTO.getPeso());
-		conjuge.setCorOlhos(conjugeDTO.getCorOlhos());
-		conjuge.setCorCabelo(conjugeDTO.getCorCabelo());
-		conjuge.setTipoSanguineo(conjugeDTO.getTipoSanguineo());
+			conjuge.setNome(conjugeDTO.getNome());
+			conjuge.setAltura(conjugeDTO.getAltura());
+			conjuge.setPeso(conjugeDTO.getPeso());
+			conjuge.setCorOlhos(conjugeDTO.getCorOlhos());
+			conjuge.setCorCabelo(conjugeDTO.getCorCabelo());
+			conjuge.setTipoSanguineo(conjugeDTO.getTipoSanguineo());
 
-		if (EnumUtils.isValidEnum(SexoEnum.class, conjugeDTO.getSexo())) {
-			conjuge.setSexo(SexoEnum.valueOf(conjugeDTO.getSexo()));
-		} else {
-			result.addError(new ObjectError("Sexo", "Sexo inválido."));
-		}
-		conjuge.setDataNascimento(LocalDate.parse(conjugeDTO.getDataNascimento(), formatter));
-		conjuge.setHoraNascimento(
-				LocalTime.parse(conjugeDTO.getHoraNascimento(), DateTimeFormatter.ofPattern("HH:mm")));
-		conjuge.setEstadoNascimento(conjugeDTO.getEstadoNascimento());
-		conjuge.setCidadeNascimento(conjugeDTO.getCidadeNascimento());
+			if (EnumUtils.isValidEnum(SexoEnum.class, conjugeDTO.getSexo())) {
+				conjuge.setSexo(SexoEnum.valueOf(conjugeDTO.getSexo()));
+			} else {
+				result.addError(new ObjectError("Sexo", "Sexo inválido."));
+			}
+			conjuge.setDataNascimento(LocalDate.parse(conjugeDTO.getDataNascimento(), formatter));
+			conjuge.setHoraNascimento(
+					LocalTime.parse(conjugeDTO.getHoraNascimento(), DateTimeFormatter.ofPattern("HH:mm")));
+			conjuge.setEstadoNascimento(conjugeDTO.getEstadoNascimento());
+			conjuge.setCidadeNascimento(conjugeDTO.getCidadeNascimento());
 
-		if (EnumUtils.isValidEnum(OrientacaoSexualEnum.class, conjugeDTO.getOrientacaoSexual())) {
-			conjuge.setOrientacaoSexual(OrientacaoSexualEnum.valueOf(conjugeDTO.getOrientacaoSexual()));
-		} else {
-			result.addError(new ObjectError("Orientacao Sexual", "Orientacao Sexual inválido."));
-		}
+			if (EnumUtils.isValidEnum(OrientacaoSexualEnum.class, conjugeDTO.getOrientacaoSexual())) {
+				conjuge.setOrientacaoSexual(OrientacaoSexualEnum.valueOf(conjugeDTO.getOrientacaoSexual()));
+			} else {
+				result.addError(new ObjectError("Orientacao Sexual", "Orientacao Sexual inválido."));
+			}
 
-		if (EnumUtils.isValidEnum(PaisesEnum.class, conjugeDTO.getPaisDeOrigem())) {
-			conjuge.setPaisOrigem(PaisesEnum.valueOf(conjugeDTO.getPaisDeOrigem()));
-		} else {
-			result.addError(new ObjectError("Pais de Origem", "Pais de Origem inválido."));
-		}
+			if (EnumUtils.isValidEnum(PaisesEnum.class, conjugeDTO.getPaisDeOrigem())) {
+				conjuge.setPaisOrigem(PaisesEnum.valueOf(conjugeDTO.getPaisDeOrigem()));
+			} else {
+				result.addError(new ObjectError("Pais de Origem", "Pais de Origem inválido."));
+			}
 
-		if (EnumUtils.isValidEnum(NacionalidadeEnum.class, conjugeDTO.getNacionalidade())) {
-			conjuge.setNacionalidade(NacionalidadeEnum.valueOf(conjugeDTO.getNacionalidade()));
-		} else {
-			result.addError(new ObjectError("Nacionalidade", "Nacionalidade inválida."));
-		}
-		conjuge.setAdotivo(conjugeDTO.getAdotivo());
+			if (EnumUtils.isValidEnum(NacionalidadeEnum.class, conjugeDTO.getNacionalidade())) {
+				conjuge.setNacionalidade(NacionalidadeEnum.valueOf(conjugeDTO.getNacionalidade()));
+			} else {
+				result.addError(new ObjectError("Nacionalidade", "Nacionalidade inválida."));
+			}
+			conjuge.setAdotivo(conjugeDTO.getAdotivo());
 
-		if (EnumUtils.isValidEnum(SignosEnum.class, conjugeDTO.getSigno())) {
-			conjuge.setSigno(SignosEnum.valueOf(conjugeDTO.getSigno()));
-		} else {
-			result.addError(new ObjectError("Signo", "Signo inválido."));
+			if (EnumUtils.isValidEnum(SignosEnum.class, conjugeDTO.getSigno())) {
+				conjuge.setSigno(SignosEnum.valueOf(conjugeDTO.getSigno()));
+			} else {
+				result.addError(new ObjectError("Signo", "Signo inválido."));
+			}
+			conjuge.setDescendencia(conjugeDTO.getDescendencia());
+			conjuge.setTamanhoPe(conjugeDTO.getTamanhoPe());
 		}
-		conjuge.setDescendencia(conjugeDTO.getDescendencia());
-		conjuge.setTamanhoPe(conjugeDTO.getTamanhoPe());
+		
 		return conjuge;
 	}
 

@@ -3,6 +3,7 @@ package br.com.vtrhp.estatistica.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +20,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import br.com.vtrhp.estatistica.api.dtos.ConjugeDTO;
 import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
 import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
@@ -82,6 +82,9 @@ public class Conjuge implements Serializable {
 
 	@OneToOne(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Documentos documentos;
+	
+	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Familia> familia;
 	
 	/*
 	 * @OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =
@@ -299,6 +302,14 @@ public class Conjuge implements Serializable {
 
 	public void setDocumentos(Documentos documentos) {
 		this.documentos = documentos;
+	}
+
+	public List<Familia> getFamilia() {
+		return familia;
+	}
+
+	public void setFamilia(List<Familia> familia) {
+		this.familia = familia;
 	}
 
 	@Override
