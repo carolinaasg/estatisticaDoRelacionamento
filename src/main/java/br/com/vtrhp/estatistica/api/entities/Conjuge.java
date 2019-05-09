@@ -86,10 +86,10 @@ public class Conjuge implements Serializable {
 	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Familia> familia;
 	
-	/*
-	 * @OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =
-	 * CascadeType.ALL) private Profissao profissao;
-	 */
+	
+	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+	private List<Profissao> profissao;
+	 
 
 	private LocalDate dataCriacao;
 

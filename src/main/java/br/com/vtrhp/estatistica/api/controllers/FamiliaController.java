@@ -61,6 +61,9 @@ public class FamiliaController {
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		familia = familiaService.persistir(familia);
+		familiaDTO.setIdFamilia(familia.getIdFamilia());
 
 		response.setData(this.converterFamiliaDto(familia));
 
@@ -89,7 +92,7 @@ public class FamiliaController {
 		familiaDTO.setSigno(familia.getSigno().toString());
 		familiaDTO.setDescendencia(familia.getDescendencia());
 		familiaDTO.setTamanhoPe(familia.getTamanhoPe());
-		familiaDTO.setGrauDeParentesco(familia.getGrauDeParentesco());
+		familiaDTO.setGrauParentesco(familia.getGrauParentesco());
 
 		return familiaDTO;
 	}
@@ -154,7 +157,7 @@ public class FamiliaController {
 			}
 			familia.setDescendencia(familiaDTO.getDescendencia());
 			familia.setTamanhoPe(familiaDTO.getTamanhoPe());
-			familia.setGrauDeParentesco(familiaDTO.getGrauDeParentesco());
+			familia.setGrauParentesco(familiaDTO.getGrauParentesco());
 		}
 
 		return familia;

@@ -20,7 +20,7 @@ public class FamiliaDTO {
 	private String sexo;
 	private String descendencia;
 	private Integer tamanhoPe;
-	private String grauDeParentesco;
+	private String grauParentesco;
 
 	public Long getIdFamilia() {
 		return idFamilia;
@@ -174,12 +174,12 @@ public class FamiliaDTO {
 		this.tamanhoPe = tamanhoPe;
 	}
 
-	public String getGrauDeParentesco() {
-		return grauDeParentesco;
+	public String getGrauParentesco() {
+		return grauParentesco;
 	}
 
-	public void setGrauDeParentesco(String grauDeParentesco) {
-		this.grauDeParentesco = grauDeParentesco;
+	public void setGrauParentesco(String grauParentesco) {
+		this.grauParentesco = grauParentesco;
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class FamiliaDTO {
 				+ estadoNascimento + ", cidadeNascimento=" + cidadeNascimento + ", orientacaoSexual=" + orientacaoSexual
 				+ ", paisOrigem=" + paisOrigem + ", nacionalidade=" + nacionalidade + ", adotivo=" + adotivo
 				+ ", signo=" + signo + ", descendencia=" + descendencia + ", tamanhoPe=" + tamanhoPe
-				+ ", grauDeParentesco=" + grauDeParentesco + "]";
+				+ ", grauParentesco=" + grauParentesco + "]";
 	}
 
 }

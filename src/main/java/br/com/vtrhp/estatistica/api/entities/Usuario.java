@@ -85,11 +85,10 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Familia> familia;
-
-	/*
-	 * @OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =
-	 * CascadeType.ALL) private Profissao profissao;
-	 */
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+	private List<Profissao> profissao;
+	 
 
 	private LocalDate dataCriacao;
 

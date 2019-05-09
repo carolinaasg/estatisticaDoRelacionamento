@@ -9,18 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 import org.javamoney.moneta.Money;
 
 @Entity
+@Table(name = "profissao")
 public class Profissao implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4452861555374092394L;
 
 	@Id
@@ -29,25 +28,32 @@ public class Profissao implements Serializable {
 	private String nomeEmpresa;
 	private String profissao;
 	private String cargo;
-	private String Descricao;
-	private Integer tempoDeEmpresa;
-	private char gostaDoQueFaz;
-	private char gostaDaEquipe;
-	private char gostaDoChefe;
+	private String Descricao;	
 	private Money salarioBruto;
 	private Money salarioLiquido;
 	private Integer qtdSubordinados;
 	private LocalDate dataDemissao;
 	private LocalDate dataContratacao;
-	/*
-	 * @OneToOne(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinColumn(name = "id_conjuge", nullable = false) private Conjuge conjuge;
-	 */
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_conjuge", nullable = false)
+	private Conjuge conjuge;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_amigo", nullable = false)
+	private Amigos amigos;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_familia", nullable = false)
+	private Familia familia;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
-
+	
 	public Long getIdProfissao() {
 		return idProfissao;
 	}
@@ -55,7 +61,7 @@ public class Profissao implements Serializable {
 	public void setIdProfissao(Long idProfissao) {
 		this.idProfissao = idProfissao;
 	}
-
+	
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
 	}
@@ -86,38 +92,6 @@ public class Profissao implements Serializable {
 
 	public void setDescricao(String descricao) {
 		Descricao = descricao;
-	}
-
-	public Integer getTempoDeEmpresa() {
-		return tempoDeEmpresa;
-	}
-
-	public void setTempoDeEmpresa(Integer tempoDeEmpresa) {
-		this.tempoDeEmpresa = tempoDeEmpresa;
-	}
-
-	public char getGostaDoQueFaz() {
-		return gostaDoQueFaz;
-	}
-
-	public void setGostaDoQueFaz(char gostaDoQueFaz) {
-		this.gostaDoQueFaz = gostaDoQueFaz;
-	}
-
-	public char getGostaDaEquipe() {
-		return gostaDaEquipe;
-	}
-
-	public void setGostaDaEquipe(char gostaDaEquipe) {
-		this.gostaDaEquipe = gostaDaEquipe;
-	}
-
-	public char getGostaDoChefe() {
-		return gostaDoChefe;
-	}
-
-	public void setGostaDoChefe(char gostaDoChefe) {
-		this.gostaDoChefe = gostaDoChefe;
 	}
 
 	public Money getSalarioBruto() {

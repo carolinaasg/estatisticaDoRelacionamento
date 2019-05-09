@@ -3,7 +3,9 @@ package br.com.vtrhp.estatistica.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -55,7 +58,7 @@ public class Familia implements Serializable {
 	private SexoEnum sexo;
 	private String descendencia;
 	private Integer tamanhoPe;
-	private String grauDeParentesco;
+	private String grauParentesco;
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
 
@@ -66,6 +69,9 @@ public class Familia implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+	private List<Profissao> profissao;
 
 	@PreUpdate
 	public void preUpdate() {
@@ -247,12 +253,12 @@ public class Familia implements Serializable {
 	}
 
 	@Column(name = "grau_parentesco")
-	public String getGrauDeParentesco() {
-		return grauDeParentesco;
+	public String getGrauParentesco() {
+		return grauParentesco;
 	}
 
-	public void setGrauDeParentesco(String grauDeParentesco) {
-		this.grauDeParentesco = grauDeParentesco;
+	public void setGrauParentesco(String grauParentesco) {
+		this.grauParentesco = grauParentesco;
 	}
 
 	@Column(name = "data_criacao")
