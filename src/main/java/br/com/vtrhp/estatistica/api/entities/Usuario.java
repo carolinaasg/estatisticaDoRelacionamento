@@ -311,6 +311,14 @@ public class Usuario implements Serializable {
 		this.familia = familia;
 	}
 
+	public List<Profissao> getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(List<Profissao> profissao) {
+		this.profissao = profissao;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nome=" + nome + ", altura=" + altura + ", peso=" + peso

@@ -42,7 +42,7 @@ public class Familia implements Serializable {
 	private Double peso;
 	private String corOlhos;
 	private String corCabelo;
-	private String tipoSanguineo;	
+	private String tipoSanguineo;
 	private String estadoNascimento;
 	private String cidadeNascimento;
 	@Enumerated(EnumType.STRING)
@@ -69,8 +69,8 @@ public class Familia implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
 
 	@PreUpdate
@@ -293,6 +293,26 @@ public class Familia implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Profissao> getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(List<Profissao> profissao) {
+		this.profissao = profissao;
+	}
+
+	@Override
+	public String toString() {
+		return "Familia [idFamilia=" + idFamilia + ", nome=" + nome + ", dataNascimento=" + dataNascimento
+				+ ", horaNascimento=" + horaNascimento + ", altura=" + altura + ", peso=" + peso + ", corOlhos="
+				+ corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo=" + tipoSanguineo + ", estadoNascimento="
+				+ estadoNascimento + ", cidadeNascimento=" + cidadeNascimento + ", orientacaoSexual=" + orientacaoSexual
+				+ ", paisOrigem=" + paisOrigem + ", nacionalidade=" + nacionalidade + ", adotivo=" + adotivo
+				+ ", signo=" + signo + ", sexo=" + sexo + ", descendencia=" + descendencia + ", tamanhoPe=" + tamanhoPe
+				+ ", grauParentesco=" + grauParentesco + ", dataCriacao=" + dataCriacao + ", dataAtualizacao="
+				+ dataAtualizacao + ", conjuge=" + conjuge + ", usuario=" + usuario + ", profissao=" + profissao + "]";
 	}
 
 }

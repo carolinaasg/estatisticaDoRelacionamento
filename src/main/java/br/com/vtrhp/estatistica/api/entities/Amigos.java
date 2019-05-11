@@ -29,7 +29,7 @@ public class Amigos implements Serializable {
 	@Id
 	private Long IdAmigo;
 
-	private String nome;	
+	private String nome;
 	private Double altura;
 	private Double peso;
 	private String corOlhos;
@@ -52,8 +52,8 @@ public class Amigos implements Serializable {
 	private SignosEnum signo;
 	private String descendencia;
 	private Integer tamanhoPe;
-	
-	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
 
 	private LocalDate dataCriacao;
@@ -70,6 +70,7 @@ public class Amigos implements Serializable {
 		dataCriacao = atual;
 		dataAtualizacao = atual;
 	}
+
 	@Column(name = "id_amigo")
 	public Long getIdAmigo() {
 		return IdAmigo;
@@ -78,6 +79,7 @@ public class Amigos implements Serializable {
 	public void setIdAmigo(Long idAmigo) {
 		IdAmigo = idAmigo;
 	}
+
 	@Column(name = "nome")
 	public String getNome() {
 		return nome;
@@ -86,6 +88,7 @@ public class Amigos implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	@Column(name = "altura")
 	public Double getAltura() {
 		return altura;
@@ -94,6 +97,7 @@ public class Amigos implements Serializable {
 	public void setAltura(Double altura) {
 		this.altura = altura;
 	}
+
 	@Column(name = "peso")
 	public Double getPeso() {
 		return peso;
@@ -102,6 +106,7 @@ public class Amigos implements Serializable {
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
+
 	@Column(name = "cor_olhos")
 	public String getCorOlhos() {
 		return corOlhos;
@@ -110,6 +115,7 @@ public class Amigos implements Serializable {
 	public void setCorOlhos(String corOlhos) {
 		this.corOlhos = corOlhos;
 	}
+
 	@Column(name = "cor_cabelo")
 	public String getCorCabelo() {
 		return corCabelo;
@@ -118,6 +124,7 @@ public class Amigos implements Serializable {
 	public void setCorCabelo(String corCabelo) {
 		this.corCabelo = corCabelo;
 	}
+
 	@Column(name = "tipo_sanguineo")
 	public String getTipoSanguineo() {
 		return tipoSanguineo;
@@ -126,6 +133,7 @@ public class Amigos implements Serializable {
 	public void setTipoSanguineo(String tipoSanguineo) {
 		this.tipoSanguineo = tipoSanguineo;
 	}
+
 	@Column(name = "sexo")
 	public SexoEnum getSexo() {
 		return sexo;
@@ -134,6 +142,7 @@ public class Amigos implements Serializable {
 	public void setSexo(SexoEnum sexo) {
 		this.sexo = sexo;
 	}
+
 	@Column(name = "data_nascimento")
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
@@ -142,6 +151,7 @@ public class Amigos implements Serializable {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
 	@Column(name = "hora_nascimento")
 	public LocalTime getHoraNascimento() {
 		return horaNascimento;
@@ -150,6 +160,7 @@ public class Amigos implements Serializable {
 	public void setHoraNascimento(LocalTime horaNascimento) {
 		this.horaNascimento = horaNascimento;
 	}
+
 	@Column(name = "estado_nascimento")
 	public String getEstadoNascimento() {
 		return estadoNascimento;
@@ -158,6 +169,7 @@ public class Amigos implements Serializable {
 	public void setEstadoNascimento(String estadoNascimento) {
 		this.estadoNascimento = estadoNascimento;
 	}
+
 	@Column(name = "cidade_nascimento")
 	public String getCidadeNascimento() {
 		return cidadeNascimento;
@@ -166,6 +178,7 @@ public class Amigos implements Serializable {
 	public void setCidadeNascimento(String cidadeNascimento) {
 		this.cidadeNascimento = cidadeNascimento;
 	}
+
 	@Column(name = "orientacao_sexual")
 	public OrientacaoSexualEnum getOrientacaoSexual() {
 		return orientacaoSexual;
@@ -174,6 +187,7 @@ public class Amigos implements Serializable {
 	public void setOrientacaoSexual(OrientacaoSexualEnum orientacaoSexual) {
 		this.orientacaoSexual = orientacaoSexual;
 	}
+
 	@Column(name = "pais_origem")
 	public PaisesEnum getPaisOrigem() {
 		return paisOrigem;
@@ -182,6 +196,7 @@ public class Amigos implements Serializable {
 	public void setPaisOrigem(PaisesEnum paisOrigem) {
 		this.paisOrigem = paisOrigem;
 	}
+
 	@Column(name = "nacionalidade")
 	public NacionalidadeEnum getNacionalidade() {
 		return nacionalidade;
@@ -190,6 +205,7 @@ public class Amigos implements Serializable {
 	public void setNacionalidade(NacionalidadeEnum nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
+
 	@Column(name = "adotivo")
 	public char getAdotivo() {
 		return adotivo;
@@ -198,6 +214,7 @@ public class Amigos implements Serializable {
 	public void setAdotivo(char adotivo) {
 		this.adotivo = adotivo;
 	}
+
 	@Column(name = "signo")
 	public SignosEnum getSigno() {
 		return signo;
@@ -206,6 +223,7 @@ public class Amigos implements Serializable {
 	public void setSigno(SignosEnum signo) {
 		this.signo = signo;
 	}
+
 	@Column(name = "descendencia")
 	public String getDescendencia() {
 		return descendencia;
@@ -214,6 +232,7 @@ public class Amigos implements Serializable {
 	public void setDescendencia(String descendencia) {
 		this.descendencia = descendencia;
 	}
+
 	@Column(name = "tamanho_pe")
 	public Integer getTamanhoPe() {
 		return tamanhoPe;
@@ -237,6 +256,25 @@ public class Amigos implements Serializable {
 
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public List<Profissao> getProfissao() {
+		return profissao;
+	}
+
+	public void setProfissao(List<Profissao> profissao) {
+		this.profissao = profissao;
+	}
+
+	@Override
+	public String toString() {
+		return "Amigos [IdAmigo=" + IdAmigo + ", nome=" + nome + ", altura=" + altura + ", peso=" + peso + ", corOlhos="
+				+ corOlhos + ", corCabelo=" + corCabelo + ", tipoSanguineo=" + tipoSanguineo + ", sexo=" + sexo
+				+ ", dataNascimento=" + dataNascimento + ", horaNascimento=" + horaNascimento + ", estadoNascimento="
+				+ estadoNascimento + ", cidadeNascimento=" + cidadeNascimento + ", orientacaoSexual=" + orientacaoSexual
+				+ ", paisOrigem=" + paisOrigem + ", nacionalidade=" + nacionalidade + ", adotivo=" + adotivo
+				+ ", signo=" + signo + ", descendencia=" + descendencia + ", tamanhoPe=" + tamanhoPe + ", profissao="
+				+ profissao + ", dataCriacao=" + dataCriacao + ", dataAtualizacao=" + dataAtualizacao + "]";
 	}
 
 }

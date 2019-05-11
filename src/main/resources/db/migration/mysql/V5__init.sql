@@ -86,27 +86,28 @@ create table if not exists documentos(
 )engine = innodb;
 
 create table if not exists profissao(
-	idProfissao integer auto_increment primary key,	
+	id_profissao integer auto_increment primary key,	
+	id_usuario integer,
 	id_conjuge integer,
-	idAmigo integer,
+	id_amigo integer,
 	id_familia integer,
-	nomeEmpresa varchar(255),
+	nome_empresa varchar(255),
 	profissao varchar(255),
 	cargo varchar(255),
 	Descricao varchar(1000),	
-	salarioBruto double,
-	salarioLiquido double,
-	qtdSubordinados integer,
-	dataDemissao date,
-	dataContratacao date,	
-	dataCriacao date,
-	dataAtualizacao date
+	salario_bruto double,
+	salario_liquido double,
+	qtd_subordinados integer,
+	data_demissao date,
+	data_contratacao date,	
+	data_criacao date,
+	data_atualizacao date
 )engine = innodb;
 
 create table if not exists residencia(
 	idResidencia integer auto_increment primary key ,
 	id_conjuge integer,
-	idAmigo integer,
+	id_amigo integer,
 	endereco varchar(255),
 	numero integer,
 	complemento varchar(255),
@@ -124,7 +125,7 @@ create table if not exists assuntosDeInteresse(
 	idAssuntosDeInteresse integer auto_increment primary key,
 	id_conjuge integer,
 	id_familia integer,
-	idAmigo integer,
+	id_amigo integer,
 	nivel varchar(255),
 	assuntosInteresse varchar(500),
 	dataCriacao date,
@@ -134,7 +135,7 @@ create table if not exists assuntosDeInteresse(
 create table if not exists ondeConheci(
 	idOndeConheci integer auto_increment primary key,
 	id_conjuge integer,
-	idAmigo integer,
+	id_amigo integer,
 	app varchar(255),
 	nomeLocal varchar(255),
 	tipo varchar(255),
@@ -219,7 +220,7 @@ create table if not exists falecimento(
 	idFalecimento integer auto_increment primary key,
 	id_conjuge integer,
 	id_familia integer,
-	idAmigo integer,
+	id_amigo integer,
 	motivo varchar(4000),
 	data date,
 	hora time,
@@ -232,7 +233,7 @@ create table if not exists veiculo(
 	idVeiculo  integer auto_increment primary key,
 	id_conjuge integer,
 	id_familia integer,
-	idAmigo integer,
+	id_amigo integer,
 	dataCompra date,
 	dataVenda date,
 	tipo varchar(255),
@@ -246,7 +247,7 @@ create table if not exists veiculo(
 )engine = innodb;
 
 create table if not exists amigos(
-	idAmigo integer auto_increment primary key,
+	id_amigo integer auto_increment primary key,
 	id_conjuge integer,
 	nome varchar(255),	
 	dataNascimento date,	
@@ -296,16 +297,18 @@ alter table documentos add constraint fk_usuario_documentos foreign key (id_usua
 alter table familia add constraint fk_familia_usuario foreign key (id_usuario) references usuario (id_usuario);
 alter table familia add constraint fk_familia_conjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 
+
 alter table residencia add constraint fk_residencia foreign key (id_conjuge) references conjuge (id_conjuge);
-alter table residencia add constraint fk_residenciaAmigo foreign key (idAmigo) references amigos (idAmigo);
+alter table residencia add constraint fk_residenciaAmigo foreign key (id_amigo) references amigos (id_amigo);
 alter table assuntosDeInteresse add constraint fk_assuntosDeInteresse foreign key (id_conjuge) references conjuge (id_conjuge); 
 alter table assuntosDeInteresse add constraint fk_assuntosDeInteresseFamilia foreign key (id_familia) references familia (id_familia); 
-alter table assuntosDeInteresse add constraint fk_assuntosDeInteresseAmigo foreign key (idAmigo) references amigos (idAmigo); 
+alter table assuntosDeInteresse add constraint fk_assuntosDeInteresseAmigo foreign key (id_amigo) references amigos (id_amigo); 
 alter table ondeConheci add constraint fk_ondeConheciconjuge foreign key (id_conjuge) references conjuge (id_conjuge);
-alter table ondeConheci add constraint fk_ondeConheciAmigo foreign key (idAmigo) references amigos (idAmigo);
+alter table ondeConheci add constraint fk_ondeConheciAmigo foreign key (id_amigo) references amigos (id_amigo);
 alter table profissao add constraint fk_profissao foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table profissao add constraint fk_profissaoFamilia foreign key (id_familia) references familia (id_familia);
-alter table profissao add constraint fk_profissaoAmigo foreign key (idAmigo) references amigos (idAmigo);
+alter table profissao add constraint fk_profissaoAmigo foreign key (id_amigo) references amigos (id_amigo);
+alter table profissao add constraint fk_profissaoUsuario foreign key (id_usuario) references usuario (id_usuario);
 alter table dia add constraint fk_dia foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table familia add constraint fk_familia foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table RelacaoComFamilia add constraint fk_relacaoComFamilia foreign key (id_familia) references familia (id_familia);
@@ -314,10 +317,10 @@ alter table PontosNegativosFamilia add constraint fk_pontosNegativosFamilia fore
 alter table contatoComFamilia add constraint fk_contatoComFamilia foreign key (id_familia) references familia (id_familia);
 alter table falecimento add constraint fk_falecimentoconjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table falecimento add constraint fk_falecimentoFamilia foreign key (id_familia) references familia (id_familia);
-alter table falecimento add constraint fk_falecimentoAmigo foreign key (idAmigo) references amigos (idAmigo);
+alter table falecimento add constraint fk_falecimentoAmigo foreign key (id_amigo) references amigos (id_amigo);
 alter table veiculo add constraint fk_veiculoconjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table veiculo add constraint fk_veiculoFamilia foreign key (id_familia) references familia (id_familia);
-alter table veiculo add constraint fk_veiculoAmigo foreign key (idAmigo) references amigos (idAmigo);
+alter table veiculo add constraint fk_veiculoAmigo foreign key (id_amigo) references amigos (id_amigo);
 alter table amigos add constraint fk_amigo foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table documentos add constraint fk_documento foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table objetivos add constraint fk_objetivos foreign key (id_conjuge) references conjuge (id_conjuge);
