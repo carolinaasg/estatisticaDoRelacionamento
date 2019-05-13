@@ -249,22 +249,28 @@ create table if not exists veiculo(
 create table if not exists amigos(
 	id_amigo integer auto_increment primary key,
 	id_conjuge integer,
+	id_usuario integer,
 	nome varchar(255),	
-	dataNascimento date,	
-	horaNascimento time,	
+	data_nascimento date,	
+	hora_nascimento time,	
 	altura double,	
 	peso double,	
-	estadoNascimento varchar(255),	
-	cidadeNascimento varchar(255),	
-	orientacaoSexual varchar(255),
-	paisDeOrigem varchar(255),	
+	cor_olhos varchar(100),
+	cor_cabelo varchar(100),
+	tipo_sanguineo varchar(10),
+	estado_nascimento varchar(255),	
+	cidade_nascimento varchar(255),	
+	orientacao_sexual varchar(255),
+	pais_origem varchar(255),	
 	nacionalidade varchar(255),	
 	adotivo varchar(2),	
 	signo varchar(255),	
+	sexo varchar(50),
 	descendencia varchar(255),	
-	tamanhoPe integer,
-	dataCriacao date,	
-	dataAtualizacao date
+	tamanho_pe integer,
+	grau_parentesco varchar(255),	
+	data_criacao date,	
+	data_atualizacao date
 )engine = innodb;
 
 create table if not exists objetivos(
@@ -321,7 +327,8 @@ alter table falecimento add constraint fk_falecimentoAmigo foreign key (id_amigo
 alter table veiculo add constraint fk_veiculoconjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table veiculo add constraint fk_veiculoFamilia foreign key (id_familia) references familia (id_familia);
 alter table veiculo add constraint fk_veiculoAmigo foreign key (id_amigo) references amigos (id_amigo);
-alter table amigos add constraint fk_amigo foreign key (id_conjuge) references conjuge (id_conjuge);
+alter table amigos add constraint fk_amigo_conjuge foreign key (id_conjuge) references conjuge (id_conjuge);
+alter table amigos add constraint fk_amigo_usuario foreign key (id_usuario) references usuario (id_usuario);
 alter table documentos add constraint fk_documento foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table objetivos add constraint fk_objetivos foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table visao add constraint fk_visao foreign key (id_conjuge) references conjuge (id_conjuge);

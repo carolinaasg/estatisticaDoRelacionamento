@@ -131,9 +131,9 @@ public class ProfissaoController {
 	}
 
 	private Profissao converterDtoParaProfissao(ProfissaoDTO profissaoDTO, BindingResult result) {
-		Profissao profissao = new Profissao();
+		Profissao profissao = new Profissao();		
 
-		if (profissaoDTO.getIdProfissao() != null && !"".equals(profissaoDTO.getIdProfissao())) {
+		if (profissaoDTO.getIdProfissao() != null) {
 			Optional<Profissao> prof = this.profissaoService.buscarPorId(profissaoDTO.getIdProfissao());
 
 			if (prof.isPresent()) {

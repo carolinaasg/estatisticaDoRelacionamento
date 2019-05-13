@@ -89,6 +89,9 @@ public class Conjuge implements Serializable {
 	
 	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
 	private List<Profissao> profissao;
+	
+	@OneToMany(mappedBy = "conjuge", fetch = FetchType.LAZY, cascade =	CascadeType.ALL)
+	private List<Amigos> amigos;
 	 
 
 	private LocalDate dataCriacao;
@@ -318,6 +321,14 @@ public class Conjuge implements Serializable {
 
 	public void setProfissao(List<Profissao> profissao) {
 		this.profissao = profissao;
+	}
+
+	public List<Amigos> getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(List<Amigos> amigos) {
+		this.amigos = amigos;
 	}
 
 	@Override

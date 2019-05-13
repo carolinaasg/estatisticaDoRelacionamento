@@ -66,8 +66,7 @@ public class UsuarioController {
 			}
 
 			usuario = usuarioService.persistir(usuario);
-			usuarioDTO.setIdUsuario(usuario.getIdUsuario());
-
+			
 			response.setData(this.converterUsuarioDto(usuario));
 
 		} catch (Exception e) {
@@ -91,54 +90,55 @@ public class UsuarioController {
 			}
 		} else {
 			usuario = new Usuario();
-		}
-		if (usuarioDTO.getIdUsuario() != null && !"".equals(usuarioDTO.getIdUsuario()))
-			usuario.setIdUsuario(usuarioDTO.getIdUsuario());
+			if (usuarioDTO.getIdUsuario() != null && !"".equals(usuarioDTO.getIdUsuario()))
+				usuario.setIdUsuario(usuarioDTO.getIdUsuario());
 
-		usuario.setNome(usuarioDTO.getNome());
-		usuario.setAltura(usuarioDTO.getAltura());
-		usuario.setPeso(usuarioDTO.getPeso());
-		usuario.setCorOlhos(usuarioDTO.getCorOlhos());
-		usuario.setCorCabelo(usuarioDTO.getCorCabelo());
-		usuario.setTipoSanguineo(usuarioDTO.getTipoSanguineo());
+			usuario.setNome(usuarioDTO.getNome());
+			usuario.setAltura(usuarioDTO.getAltura());
+			usuario.setPeso(usuarioDTO.getPeso());
+			usuario.setCorOlhos(usuarioDTO.getCorOlhos());
+			usuario.setCorCabelo(usuarioDTO.getCorCabelo());
+			usuario.setTipoSanguineo(usuarioDTO.getTipoSanguineo());
 
-		if (EnumUtils.isValidEnum(SexoEnum.class, usuarioDTO.getSexo())) {
-			usuario.setSexo(SexoEnum.valueOf(usuarioDTO.getSexo()));
-		} else {
-			result.addError(new ObjectError("Sexo", "Sexo inválido."));
-		}
-		usuario.setDataNascimento(LocalDate.parse(usuarioDTO.getDataNascimento(), formatter));
-		usuario.setHoraNascimento(
-				LocalTime.parse(usuarioDTO.getHoraNascimento(), DateTimeFormatter.ofPattern("HH:mm")));
-		usuario.setEstadoNascimento(usuarioDTO.getEstadoNascimento());
-		usuario.setCidadeNascimento(usuarioDTO.getCidadeNascimento());
+			if (EnumUtils.isValidEnum(SexoEnum.class, usuarioDTO.getSexo())) {
+				usuario.setSexo(SexoEnum.valueOf(usuarioDTO.getSexo()));
+			} else {
+				result.addError(new ObjectError("Sexo", "Sexo inválido."));
+			}
+			usuario.setDataNascimento(LocalDate.parse(usuarioDTO.getDataNascimento(), formatter));
+			usuario.setHoraNascimento(
+					LocalTime.parse(usuarioDTO.getHoraNascimento(), DateTimeFormatter.ofPattern("HH:mm")));
+			usuario.setEstadoNascimento(usuarioDTO.getEstadoNascimento());
+			usuario.setCidadeNascimento(usuarioDTO.getCidadeNascimento());
 
-		if (EnumUtils.isValidEnum(OrientacaoSexualEnum.class, usuarioDTO.getOrientacaoSexual())) {
-			usuario.setOrientacaoSexual(OrientacaoSexualEnum.valueOf(usuarioDTO.getOrientacaoSexual()));
-		} else {
-			result.addError(new ObjectError("Orientacao Sexual", "Orientacao Sexual inválido."));
-		}
+			if (EnumUtils.isValidEnum(OrientacaoSexualEnum.class, usuarioDTO.getOrientacaoSexual())) {
+				usuario.setOrientacaoSexual(OrientacaoSexualEnum.valueOf(usuarioDTO.getOrientacaoSexual()));
+			} else {
+				result.addError(new ObjectError("Orientacao Sexual", "Orientacao Sexual inválido."));
+			}
 
-		if (EnumUtils.isValidEnum(PaisesEnum.class, usuarioDTO.getPaisDeOrigem())) {
-			usuario.setPaisOrigem(PaisesEnum.valueOf(usuarioDTO.getPaisDeOrigem()));
-		} else {
-			result.addError(new ObjectError("Pais de Origem", "Pais de Origem inválido."));
-		}
+			if (EnumUtils.isValidEnum(PaisesEnum.class, usuarioDTO.getPaisDeOrigem())) {
+				usuario.setPaisOrigem(PaisesEnum.valueOf(usuarioDTO.getPaisDeOrigem()));
+			} else {
+				result.addError(new ObjectError("Pais de Origem", "Pais de Origem inválido."));
+			}
 
-		if (EnumUtils.isValidEnum(NacionalidadeEnum.class, usuarioDTO.getNacionalidade())) {
-			usuario.setNacionalidade(NacionalidadeEnum.valueOf(usuarioDTO.getNacionalidade()));
-		} else {
-			result.addError(new ObjectError("Nacionalidade", "Nacionalidade inválida."));
-		}
-		usuario.setAdotivo(usuarioDTO.getAdotivo());
+			if (EnumUtils.isValidEnum(NacionalidadeEnum.class, usuarioDTO.getNacionalidade())) {
+				usuario.setNacionalidade(NacionalidadeEnum.valueOf(usuarioDTO.getNacionalidade()));
+			} else {
+				result.addError(new ObjectError("Nacionalidade", "Nacionalidade inválida."));
+			}
+			usuario.setAdotivo(usuarioDTO.getAdotivo());
 
-		if (EnumUtils.isValidEnum(SignosEnum.class, usuarioDTO.getSigno())) {
-			usuario.setSigno(SignosEnum.valueOf(usuarioDTO.getSigno()));
-		} else {
-			result.addError(new ObjectError("Signo", "Signo inválido."));
+			if (EnumUtils.isValidEnum(SignosEnum.class, usuarioDTO.getSigno())) {
+				usuario.setSigno(SignosEnum.valueOf(usuarioDTO.getSigno()));
+			} else {
+				result.addError(new ObjectError("Signo", "Signo inválido."));
+			}
+			usuario.setDescendencia(usuarioDTO.getDescendencia());
+			usuario.setTamanhoPe(usuarioDTO.getTamanhoPe());
 		}
-		usuario.setDescendencia(usuarioDTO.getDescendencia());
-		usuario.setTamanhoPe(usuarioDTO.getTamanhoPe());
+		
 		return usuario;
 	}
 

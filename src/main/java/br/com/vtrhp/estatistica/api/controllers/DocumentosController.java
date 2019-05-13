@@ -62,12 +62,10 @@ public class DocumentosController {
 				return ResponseEntity.badRequest().body(response);
 			} else {
 				if (tipo.equals("usuario")) {
-					documento.setUsuario(this.usuarioService.buscarPorId(id).get());
-					documento.getUsuario().setIdUsuario(id);
+					documento.setUsuario(this.usuarioService.buscarPorId(id).get());					
 				}
 				if (tipo.equals("conjuge")) {
-					documento.setConjuge(this.conjugeService.buscarPorId(id).get());
-					documento.getConjuge().setIdConjuge(id);
+					documento.setConjuge(this.conjugeService.buscarPorId(id).get());					
 				}
 			}
 

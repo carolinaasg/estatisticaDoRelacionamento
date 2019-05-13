@@ -11,7 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -27,6 +31,7 @@ public class Amigos implements Serializable {
 
 	private static final long serialVersionUID = -2028297871956417466L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long IdAmigo;
 
 	private String nome;
@@ -55,6 +60,14 @@ public class Amigos implements Serializable {
 
 	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_conjuge")
+	private Conjuge conjuge;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -264,6 +277,22 @@ public class Amigos implements Serializable {
 
 	public void setProfissao(List<Profissao> profissao) {
 		this.profissao = profissao;
+	}
+
+	public Conjuge getConjuge() {
+		return conjuge;
+	}
+
+	public void setConjuge(Conjuge conjuge) {
+		this.conjuge = conjuge;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
