@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -60,11 +61,17 @@ public class Amigos implements Serializable {
 
 	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
-	
+
+	@OneToMany(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
+
+	@OneToOne(mappedBy = "amigos", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Visao visao;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_conjuge")
 	private Conjuge conjuge;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
@@ -279,6 +286,14 @@ public class Amigos implements Serializable {
 		this.profissao = profissao;
 	}
 
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
+	}
+
 	public Conjuge getConjuge() {
 		return conjuge;
 	}
@@ -293,6 +308,14 @@ public class Amigos implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Visao getVisao() {
+		return visao;
+	}
+
+	public void setVisao(Visao visao) {
+		this.visao = visao;
 	}
 
 	@Override

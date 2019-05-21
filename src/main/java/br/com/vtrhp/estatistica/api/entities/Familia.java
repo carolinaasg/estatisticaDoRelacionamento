@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -70,8 +71,14 @@ public class Familia implements Serializable {
 	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
+	
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
+	
+	@OneToOne(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Visao visao;
 
 	@PreUpdate
 	public void preUpdate() {
@@ -301,6 +308,22 @@ public class Familia implements Serializable {
 
 	public void setProfissao(List<Profissao> profissao) {
 		this.profissao = profissao;
+	}
+
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public Visao getVisao() {
+		return visao;
+	}
+
+	public void setVisao(Visao visao) {
+		this.visao = visao;
 	}
 
 	@Override

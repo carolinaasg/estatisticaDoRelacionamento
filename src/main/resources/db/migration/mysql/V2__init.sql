@@ -1,3 +1,27 @@
+create table if not exists usuario(
+	id_usuario integer auto_increment primary key,	
+	nome varchar(255),	
+	data_nascimento date,	
+	hora_nascimento time,	
+	altura double,	
+	peso double,
+	cor_olhos varchar(100),
+	cor_cabelo varchar(100),
+	tipo_sanguineo varchar(10),
+	sexo varchar(50),
+	estado_nascimento varchar(255),	
+	cidade_nascimento varchar(255),	
+	orientacao_sexual varchar(255),
+	pais_origem varchar(255),	
+	nacionalidade varchar(255),	
+	adotivo varchar(2),	
+	signo varchar(255),	
+	descendencia varchar(255),	
+	tamanho_pe integer,
+	data_criacao date,	
+	data_atualizacao date
+)engine = innodb;
+
 create table if not exists conjuge(
 	id_conjuge integer auto_increment primary key,
 	id_usuario integer,	
@@ -23,17 +47,18 @@ create table if not exists conjuge(
 	data_atualizacao date
 )engine = innodb;
 
-create table if not exists usuario(
-	id_usuario integer auto_increment primary key,	
+create table if not exists amigos(
+	id_amigo integer auto_increment primary key,
+	id_conjuge integer,
+	id_usuario integer,
 	nome varchar(255),	
 	data_nascimento date,	
 	hora_nascimento time,	
 	altura double,	
-	peso double,
+	peso double,	
 	cor_olhos varchar(100),
 	cor_cabelo varchar(100),
 	tipo_sanguineo varchar(10),
-	sexo varchar(50),
 	estado_nascimento varchar(255),	
 	cidade_nascimento varchar(255),	
 	orientacao_sexual varchar(255),
@@ -41,8 +66,10 @@ create table if not exists usuario(
 	nacionalidade varchar(255),	
 	adotivo varchar(2),	
 	signo varchar(255),	
+	sexo varchar(50),
 	descendencia varchar(255),	
 	tamanho_pe integer,
+	grau_parentesco varchar(255),	
 	data_criacao date,	
 	data_atualizacao date
 )engine = innodb;
@@ -100,6 +127,23 @@ create table if not exists profissao(
 	qtd_subordinados integer,
 	data_demissao date,
 	data_contratacao date,	
+	data_criacao date,
+	data_atualizacao date
+)engine = innodb;
+
+create table if not exists visao(
+	id_visao integer auto_increment primary key,
+	id_usuario integer,
+	id_conjuge integer,
+	id_amigo integer,
+	id_familia integer,
+	grau_esquerdo double,
+	grau_direito double,
+	tipo_esquerdo varchar(255), 
+	tipo_direito varchar(255), 
+	usa_oculos varchar(2),
+	fez_cirurgia varchar(2),
+	usa_lente varchar(2),
 	data_criacao date,
 	data_atualizacao date
 )engine = innodb;
@@ -246,32 +290,7 @@ create table if not exists veiculo(
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists amigos(
-	id_amigo integer auto_increment primary key,
-	id_conjuge integer,
-	id_usuario integer,
-	nome varchar(255),	
-	data_nascimento date,	
-	hora_nascimento time,	
-	altura double,	
-	peso double,	
-	cor_olhos varchar(100),
-	cor_cabelo varchar(100),
-	tipo_sanguineo varchar(10),
-	estado_nascimento varchar(255),	
-	cidade_nascimento varchar(255),	
-	orientacao_sexual varchar(255),
-	pais_origem varchar(255),	
-	nacionalidade varchar(255),	
-	adotivo varchar(2),	
-	signo varchar(255),	
-	sexo varchar(50),
-	descendencia varchar(255),	
-	tamanho_pe integer,
-	grau_parentesco varchar(255),	
-	data_criacao date,	
-	data_atualizacao date
-)engine = innodb;
+
 
 create table if not exists objetivos(
 	idObjetivos integer auto_increment primary key,
@@ -284,19 +303,7 @@ create table if not exists objetivos(
 	dataAtualizacao date
 )engine = innodb;
 
-create table if not exists visao(
-	idVisao integer auto_increment primary key,
-	id_conjuge integer,
-	grauOlhoEsquerdo double,
-	grauOlhoDireito double,	
-	tipoGrauOlhoEsquerdo varchar(255), 
-	tipoGrauOlhoDireito varchar(255),
-	usaOCulos varchar(255),
-	fezCirurgia varchar(255),
-	usaLenteContato varchar(255),
-	dataCriacao  date,
-	dataAtualizacao date
-)engine = innodb;
+
 
 alter table conjuge add constraint fk_usuario_conjuge foreign key (id_usuario) references usuario (id_usuario);
 alter table documentos add constraint fk_usuario_documentos foreign key (id_usuario) references usuario (id_usuario);
@@ -331,7 +338,9 @@ alter table amigos add constraint fk_amigo_conjuge foreign key (id_conjuge) refe
 alter table amigos add constraint fk_amigo_usuario foreign key (id_usuario) references usuario (id_usuario);
 alter table documentos add constraint fk_documento foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table objetivos add constraint fk_objetivos foreign key (id_conjuge) references conjuge (id_conjuge);
-alter table visao add constraint fk_visao foreign key (id_conjuge) references conjuge (id_conjuge);
+alter table visao add constraint fk_visao_conjuge foreign key (id_conjuge) references conjuge (id_conjuge);
+alter table visao add constraint fk_visao_usuario foreign key (id_usuario) references usuario (id_usuario);
+alter table visao add constraint fk_visao_amigos foreign key (id_amigo) references amigos (id_amigo);
 
 
 

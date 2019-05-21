@@ -3,34 +3,55 @@ package br.com.vtrhp.estatistica.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 import br.com.vtrhp.estatistica.api.enums.ProblemasVisao;
 
 @Entity
+@Table(name = "visao")
 public class Visao implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5501459470347058476L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idVisao;
-	private Double grauOlhoEsquerdo;
-	private Double grauOlhoDireito;
+	private Double grauEsquerdo;
+	private Double grauDireito;
 	@Enumerated(EnumType.STRING)
-	private ProblemasVisao tipoGrauOlhoEsquerdo;
+	private ProblemasVisao tipoEsquerdo;
 	@Enumerated(EnumType.STRING)
-	private ProblemasVisao tipoGrauOlhoDireito;
-
-	private String usaOCulos;
+	private ProblemasVisao tipoDireito;
+	private String usaOculos;
 	private String fezCirurgia;
-	private String usaLenteContato;
+	private String usaLente;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_conjuge")
+	private Conjuge conjuge;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_familia")
+	private Familia familia;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_amigo")
+	private Amigos amigos;
 
 	private LocalDate dataCriacao;
 	private LocalDate dataAtualizacao;
@@ -47,6 +68,7 @@ public class Visao implements Serializable {
 		dataAtualizacao = atual;
 	}
 
+	@Column(name = "id_visao")
 	public Long getIdVisao() {
 		return idVisao;
 	}
@@ -55,46 +77,52 @@ public class Visao implements Serializable {
 		this.idVisao = idVisao;
 	}
 
-	public Double getGrauOlhoEsquerdo() {
-		return grauOlhoEsquerdo;
+	@Column(name = "grau_esquerdo")
+	public Double getGrauEsquerdo() {
+		return grauEsquerdo;
 	}
 
-	public void setGrauOlhoEsquerdo(Double grauOlhoEsquerdo) {
-		this.grauOlhoEsquerdo = grauOlhoEsquerdo;
+	public void setGrauEsquerdo(Double grauEsquerdo) {
+		this.grauEsquerdo = grauEsquerdo;
 	}
 
-	public Double getGrauOlhoDireito() {
-		return grauOlhoDireito;
+	@Column(name = "grau_direito")
+	public Double getGrauDireito() {
+		return grauDireito;
 	}
 
-	public void setGrauOlhoDireito(Double grauOlhoDireito) {
-		this.grauOlhoDireito = grauOlhoDireito;
+	public void setGrauDireito(Double grauDireito) {
+		this.grauDireito = grauDireito;
 	}
 
-	public ProblemasVisao getTipoGrauOlhoEsquerdo() {
-		return tipoGrauOlhoEsquerdo;
+	@Column(name = "tipo_esquerdo")
+	public ProblemasVisao getTipoEsquerdo() {
+		return tipoEsquerdo;
 	}
 
-	public void setTipoGrauOlhoEsquerdo(ProblemasVisao tipoGrauOlhoEsquerdo) {
-		this.tipoGrauOlhoEsquerdo = tipoGrauOlhoEsquerdo;
+	public void setTipoEsquerdo(ProblemasVisao tipoEsquerdo) {
+		this.tipoEsquerdo = tipoEsquerdo;
 	}
 
-	public ProblemasVisao getTipoGrauOlhoDireito() {
-		return tipoGrauOlhoDireito;
+	@Column(name = "tipo_direito")
+	public ProblemasVisao getTipoDireito() {
+		return tipoDireito;
 	}
 
-	public void setTipoGrauOlhoDireito(ProblemasVisao tipoGrauOlhoDireito) {
-		this.tipoGrauOlhoDireito = tipoGrauOlhoDireito;
+	public void setTipoDireito(ProblemasVisao tipoDireito) {
+		this.tipoDireito = tipoDireito;
 	}
 
-	public String getUsaOCulos() {
-		return usaOCulos;
+	@Column(name = "usa_oculos")
+	public String getUsaOculos() {
+		return usaOculos;
 	}
 
-	public void setUsaOCulos(String usaOCulos) {
-		this.usaOCulos = usaOCulos;
+	public void setUsaOculos(String usaOculos) {
+		this.usaOculos = usaOculos;
 	}
 
+	@Column(name = "fez_cirurgia")
 	public String getFezCirurgia() {
 		return fezCirurgia;
 	}
@@ -103,12 +131,13 @@ public class Visao implements Serializable {
 		this.fezCirurgia = fezCirurgia;
 	}
 
-	public String getUsaLenteContato() {
-		return usaLenteContato;
+	@Column(name = "usa_lente")
+	public String getUsaLente() {
+		return usaLente;
 	}
 
-	public void setUsaLenteContato(String usaLenteContato) {
-		this.usaLenteContato = usaLenteContato;
+	public void setUsaLente(String usaLente) {
+		this.usaLente = usaLente;
 	}
 
 	public LocalDate getDataCriacao() {
@@ -126,5 +155,48 @@ public class Visao implements Serializable {
 	public void setDataAtualizacao(LocalDate dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
+
+	public Conjuge getConjuge() {
+		return conjuge;
+	}
+
+	public void setConjuge(Conjuge conjuge) {
+		this.conjuge = conjuge;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
+	}
+
+	public Amigos getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(Amigos amigos) {
+		this.amigos = amigos;
+	}
+
+	@Override
+	public String toString() {
+		return "Visao [idVisao=" + idVisao + ", grauEsquerdo=" + grauEsquerdo + ", grauDireito=" + grauDireito
+				+ ", tipoEsquerdo=" + tipoEsquerdo + ", tipoDireito=" + tipoDireito + ", usaOculos=" + usaOculos
+				+ ", fezCirurgia=" + fezCirurgia + ", usaLente=" + usaLente + ", conjuge=" + conjuge + ", usuario="
+				+ usuario + ", familia=" + familia + ", amigos=" + amigos + ", dataCriacao=" + dataCriacao
+				+ ", dataAtualizacao=" + dataAtualizacao + "]";
+	}
+	
+	
 
 }

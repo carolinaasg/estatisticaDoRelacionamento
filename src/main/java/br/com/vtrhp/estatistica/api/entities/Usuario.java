@@ -82,16 +82,21 @@ public class Usuario implements Serializable {
 
 	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Documentos documentos;
-	
+
+	@OneToOne(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Visao visao;
+
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Familia> familia;
-	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade =	CascadeType.ALL) 
+
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Profissao> profissao;
-	
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade =	CascadeType.ALL)
+
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Veiculo> veiculo;
+
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Amigos> amigos;
-	 
 
 	private LocalDate dataCriacao;
 
@@ -320,6 +325,30 @@ public class Usuario implements Serializable {
 
 	public void setProfissao(List<Profissao> profissao) {
 		this.profissao = profissao;
+	}
+
+	public List<Veiculo> getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(List<Veiculo> veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public Visao getVisao() {
+		return visao;
+	}
+
+	public void setVisao(Visao visao) {
+		this.visao = visao;
+	}
+
+	public List<Amigos> getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(List<Amigos> amigos) {
+		this.amigos = amigos;
 	}
 
 	@Override

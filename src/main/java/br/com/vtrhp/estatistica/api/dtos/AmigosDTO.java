@@ -1,11 +1,6 @@
 package br.com.vtrhp.estatistica.api.dtos;
 
-import br.com.vtrhp.estatistica.api.enums.NacionalidadeEnum;
-import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
-import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
-
-public class AmigosDTO {
-	
+public class AmigosDTO {	
 	
 	private Long IdAmigo;
 	private String nome;

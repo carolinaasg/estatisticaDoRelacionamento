@@ -63,9 +63,11 @@ public class DocumentosController {
 			} else {
 				if (tipo.equals("usuario")) {
 					documento.setUsuario(this.usuarioService.buscarPorId(id).get());					
-				}
-				if (tipo.equals("conjuge")) {
+				}else if (tipo.equals("conjuge")) {
 					documento.setConjuge(this.conjugeService.buscarPorId(id).get());					
+				}else {
+					log.error("Tipo não pode ser diferente de usuario ou conjuge: {}", tipo);
+					return ResponseEntity.badRequest().body(response);
 				}
 			}
 
