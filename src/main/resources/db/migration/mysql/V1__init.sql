@@ -281,18 +281,18 @@ create table if not exists veiculo(
 	id_amigo integer,	
 	placa varchar(55),
 	renavam varchar(255),
-	qtPortas varchar(20),
+	qt_portas varchar(20),
 	motor varchar(20),
-	dataCompra  date,
-	dataVenda  date,
+	data_compra  date,
+	data_venda  date,
 	tipo varchar(255),
 	marca varchar(255),
 	modelo varchar(255),
-	anoFabricacao date,
-	anoModelo date,
+	ano_fabricacao integer,
+	ano_modelo integer,
 	quilometragem double,	
-	dataCriacao date,
-	dataAtualizacao date
+	data_criacao date,
+	data_atualizacao date
 )engine = innodb;
 
 
