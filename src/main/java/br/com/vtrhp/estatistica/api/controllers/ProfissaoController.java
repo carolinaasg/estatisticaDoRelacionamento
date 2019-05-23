@@ -116,6 +116,7 @@ public class ProfissaoController {
 	}
 
 	private ProfissaoDTO converterProfissaoDTO(Profissao profissao) {
+		log.info("Convertendo Profissao para ProfissaoDTO {}", profissao.toString());
 		ProfissaoDTO profissaoDTO = new ProfissaoDTO();
 
 		profissaoDTO.setIdProfissao(profissao.getIdProfissao());
@@ -126,6 +127,7 @@ public class ProfissaoController {
 		profissaoDTO.setSalarioBruto(profissao.getSalarioBruto());
 		profissaoDTO.setSalarioLiquido(profissao.getSalarioLiquido());
 		profissaoDTO.setQtdSubordinados(profissao.getQtdSubordinados());
+		log.info("Profissao convertida para ProfissaoDTO {}", profissaoDTO.toString());
 
 		return profissaoDTO;
 	}

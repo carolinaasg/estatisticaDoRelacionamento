@@ -13,10 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "veiculo")
+@Entity(name = "veiculo")
 public class Veiculo implements Serializable {
 
 	private static final long serialVersionUID = -4971345508075615023L;

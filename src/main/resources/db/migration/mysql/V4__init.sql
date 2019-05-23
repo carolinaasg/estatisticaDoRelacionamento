@@ -274,18 +274,23 @@ create table if not exists falecimento(
 )engine = innodb;
 
 create table if not exists veiculo(
-	idVeiculo  integer auto_increment primary key,
+	id_veiculo  integer auto_increment primary key,
 	id_conjuge integer,
+	id_usuario integer,
 	id_familia integer,
-	id_amigo integer,
-	dataCompra date,
-	dataVenda date,
+	id_amigo integer,	
+	placa varchar(55),
+	renavam varchar(255),
+	qtPortas varchar(20),
+	motor varchar(20),
+	dataCompra  date,
+	dataVenda  date,
 	tipo varchar(255),
 	marca varchar(255),
 	modelo varchar(255),
-	anoFabricacao integer,
-	anoModelo integer,
-	quilometragem integer,	
+	anoFabricacao date,
+	anoModelo date,
+	quilometragem double,	
 	dataCriacao date,
 	dataAtualizacao date
 )engine = innodb;
@@ -334,6 +339,7 @@ alter table falecimento add constraint fk_falecimentoAmigo foreign key (id_amigo
 alter table veiculo add constraint fk_veiculoconjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table veiculo add constraint fk_veiculoFamilia foreign key (id_familia) references familia (id_familia);
 alter table veiculo add constraint fk_veiculoAmigo foreign key (id_amigo) references amigos (id_amigo);
+alter table veiculo add constraint fk_veiculoUsuario foreign key (id_usuario) references usuario (id_usuario);
 alter table amigos add constraint fk_amigo_conjuge foreign key (id_conjuge) references conjuge (id_conjuge);
 alter table amigos add constraint fk_amigo_usuario foreign key (id_usuario) references usuario (id_usuario);
 alter table documentos add constraint fk_documento foreign key (id_conjuge) references conjuge (id_conjuge);
