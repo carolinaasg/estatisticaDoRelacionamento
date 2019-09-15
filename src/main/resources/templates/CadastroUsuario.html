@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<link href="css/styles.css" rel="stylesheet" />
+<title>Spring Boot Application</title>
+</head>
+<body>
+	<h4>Welcome to Thymeleaf Spring Boot web application</h4>
+	<form action="#" th:action="@{/api/usuario/adicionar}" th:object="${usuarioDTO}"
+		method="post">
+		<div class="form-group row">
+			<div class="col-md-4">
+				<label>Nome</label> <input type="text" class="form-control input-sm"
+					autofocus="autofocus" placeholder="Informe o nome" maxlength="500" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-md-4">
+				<label>Altura</label> <input type="text"
+					class="form-control input-sm" autofocus="autofocus"
+					placeholder="Informe a altura" maxlength="500" />
+			</div>
+		</div>
+		<input type="submit" value="Adicionar usuario"> 
+		
+		<div th:switch="${usuarios}">
+    <h2 th:case="null">No users yet!</h2>
+        <div th:case="*">
+            <h2>Usuarios</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Altrua</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${user.altura}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${usuario.idUsuario})}">Edit</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${user.idUsuario})}">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+    <p><a href="/signup">Add a new user</a></p>
+</div>
+		
+	</form>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package br.com.vtrhp.estatistica.api.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario persistir(Usuario usuario) {
 		return usuarioRepository.save(usuario);
+	}
+
+	@Override
+	public List<Usuario> buscarTodos() {
+		return usuarioRepository.findAll();
 	}
 
 }

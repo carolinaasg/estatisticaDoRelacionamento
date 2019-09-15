@@ -1,5 +1,6 @@
 package br.com.vtrhp.estatistica.api.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ import br.com.vtrhp.estatistica.api.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Transactional(readOnly = true)
 	Optional<Usuario> findById(Long id);
+	@Transactional(readOnly = true)
+	List<Usuario> findAll();
 }

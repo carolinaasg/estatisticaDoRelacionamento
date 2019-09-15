@@ -14,12 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.vtrhp.estatistica.api.dtos.UsuarioDTO;
@@ -43,9 +45,9 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@PostMapping(path = "/adicionar", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response<UsuarioDTO>> adicionar(@Valid @RequestBody UsuarioDTO usuarioDTO,
-			BindingResult result) throws ParseException {
+	@PostMapping(path = "/adicionar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String adicionar(@Valid UsuarioDTO usuarioDTO,
+			BindingResult result, Model model) throws ParseException {
 
 		Response<UsuarioDTO> response = new Response<UsuarioDTO>();
 
@@ -62,19 +64,22 @@ public class UsuarioController {
 			if (result.hasErrors()) {
 				log.error("Erro validando Usuario: {} ", result.getAllErrors());
 				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-				return ResponseEntity.badRequest().body(response);
+				return "CadastroUsuario.html";
 			}
 
 			usuario = usuarioService.persistir(usuario);
-			
-			response.setData(this.converterUsuarioDto(usuario));
+			if(usuario!=null) {
+				model.addAttribute("usuarios", usuarioService.buscarTodos());
+			}else {
+				throw new Exception();
+			}
 
 		} catch (Exception e) {
 			log.error("Erro ao adicionar um usuario {}", usuarioDTO.toString());
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(response);
+			return "CadastroUsuario.html";
 		}
-		return ResponseEntity.ok(response);
+		return "CadastroUsuario.html";
 
 	}
 
