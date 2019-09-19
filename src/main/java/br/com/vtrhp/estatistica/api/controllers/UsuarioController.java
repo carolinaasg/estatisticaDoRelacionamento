@@ -4,25 +4,23 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vtrhp.estatistica.api.dtos.UsuarioDTO;
 import br.com.vtrhp.estatistica.api.entities.Usuario;
@@ -31,55 +29,46 @@ import br.com.vtrhp.estatistica.api.enums.OrientacaoSexualEnum;
 import br.com.vtrhp.estatistica.api.enums.PaisesEnum;
 import br.com.vtrhp.estatistica.api.enums.SexoEnum;
 import br.com.vtrhp.estatistica.api.enums.SignosEnum;
-import br.com.vtrhp.estatistica.api.response.Response;
 import br.com.vtrhp.estatistica.api.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 
 	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
+	@RequestMapping("/")
+	public String UsuarioController() {
+		return "cadastroUsuario";
+	}
 
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@PostMapping(path = "/adicionar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String adicionar(@Valid UsuarioDTO usuarioDTO,
+	@RequestMapping(value = "/adicionar", method = RequestMethod.POST)
+	public ModelAndView  adicionar(@ModelAttribute Usuario usuario,
 			BindingResult result, Model model) throws ParseException {
 
-		Response<UsuarioDTO> response = new Response<UsuarioDTO>();
-
+		ModelAndView mav = new ModelAndView();
+		List<Usuario> listaUsuario = new ArrayList<Usuario>();
 		try {
 
-			log.info("Adicionando usuario: {}", usuarioDTO.toString());
+			log.info("Adicionando usuario: {}", usuario.toString());
 
-			log.info("Response foi criado: {}", response.toString());
-
-			Usuario usuario = this.converterDtoParaUsuario(usuarioDTO, result);
-
-			log.info("Convertido para Usuario: {}", usuario.toString());
-
-			if (result.hasErrors()) {
-				log.error("Erro validando Usuario: {} ", result.getAllErrors());
-				result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-				return "CadastroUsuario.html";
-			}
+			mav.setViewName("cadastroUsuario");
+			//Usuario usuario = this.converterDtoParaUsuario(usuarioDTO, result);
 
 			usuario = usuarioService.persistir(usuario);
-			if(usuario!=null) {
-				model.addAttribute("usuarios", usuarioService.buscarTodos());
-			}else {
-				throw new Exception();
-			}
+			
+			listaUsuario.add(usuario);
+	        mav.addObject("listaUsuario", listaUsuario);
 
 		} catch (Exception e) {
-			log.error("Erro ao adicionar um usuario {}", usuarioDTO.toString());
+			log.error("Erro ao adicionar um usuario {}", usuario.toString());
 			e.printStackTrace();
-			return "CadastroUsuario.html";
 		}
-		return "CadastroUsuario.html";
+		return mav;
 
 	}
 
